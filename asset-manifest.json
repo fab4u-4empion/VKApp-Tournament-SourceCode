@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/VKAppTournament/static/css/main.6eca340c.chunk.css",
+    "main.js": "/VKAppTournament/static/js/main.ee1b0bab.chunk.js",
+    "main.js.map": "/VKAppTournament/static/js/main.ee1b0bab.chunk.js.map",
+    "runtime-main.js": "/VKAppTournament/static/js/runtime-main.b882065a.js",
+    "runtime-main.js.map": "/VKAppTournament/static/js/runtime-main.b882065a.js.map",
+    "static/css/2.86df01db.chunk.css": "/VKAppTournament/static/css/2.86df01db.chunk.css",
+    "static/js/2.b8252de9.chunk.js": "/VKAppTournament/static/js/2.b8252de9.chunk.js",
+    "static/js/2.b8252de9.chunk.js.map": "/VKAppTournament/static/js/2.b8252de9.chunk.js.map",
+    "index.html": "/VKAppTournament/index.html",
+    "precache-manifest.da499acf936fab2d4a09d5986bfd9267.js": "/VKAppTournament/precache-manifest.da499acf936fab2d4a09d5986bfd9267.js",
+    "service-worker.js": "/VKAppTournament/service-worker.js",
+    "static/css/2.86df01db.chunk.css.map": "/VKAppTournament/static/css/2.86df01db.chunk.css.map",
+    "static/css/main.6eca340c.chunk.css.map": "/VKAppTournament/static/css/main.6eca340c.chunk.css.map",
+    "static/js/2.b8252de9.chunk.js.LICENSE.txt": "/VKAppTournament/static/js/2.b8252de9.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b882065a.js",
+    "static/css/2.86df01db.chunk.css",
+    "static/js/2.b8252de9.chunk.js",
+    "static/css/main.6eca340c.chunk.css",
+    "static/js/main.ee1b0bab.chunk.js"
+  ]
+}
