@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/VKApp-Tournament-SourceCode/static/css/main.6eca340c.chunk.css",
-    "main.js": "/VKApp-Tournament-SourceCode/static/js/main.ee1b0bab.chunk.js",
-    "main.js.map": "/VKApp-Tournament-SourceCode/static/js/main.ee1b0bab.chunk.js.map",
+    "main.js": "/VKApp-Tournament-SourceCode/static/js/main.a22312dc.chunk.js",
+    "main.js.map": "/VKApp-Tournament-SourceCode/static/js/main.a22312dc.chunk.js.map",
     "runtime-main.js": "/VKApp-Tournament-SourceCode/static/js/runtime-main.86d7d30c.js",
     "runtime-main.js.map": "/VKApp-Tournament-SourceCode/static/js/runtime-main.86d7d30c.js.map",
     "static/css/2.86df01db.chunk.css": "/VKApp-Tournament-SourceCode/static/css/2.86df01db.chunk.css",
-    "static/js/2.a2541ead.chunk.js": "/VKApp-Tournament-SourceCode/static/js/2.a2541ead.chunk.js",
-    "static/js/2.a2541ead.chunk.js.map": "/VKApp-Tournament-SourceCode/static/js/2.a2541ead.chunk.js.map",
+    "static/js/2.833170d5.chunk.js": "/VKApp-Tournament-SourceCode/static/js/2.833170d5.chunk.js",
+    "static/js/2.833170d5.chunk.js.map": "/VKApp-Tournament-SourceCode/static/js/2.833170d5.chunk.js.map",
     "index.html": "/VKApp-Tournament-SourceCode/index.html",
-    "precache-manifest.bca2daa74015c2662190f94955f16cf1.js": "/VKApp-Tournament-SourceCode/precache-manifest.bca2daa74015c2662190f94955f16cf1.js",
+    "precache-manifest.35b292f8228237b51b34ac539ec9e4b6.js": "/VKApp-Tournament-SourceCode/precache-manifest.35b292f8228237b51b34ac539ec9e4b6.js",
     "service-worker.js": "/VKApp-Tournament-SourceCode/service-worker.js",
     "static/css/2.86df01db.chunk.css.map": "/VKApp-Tournament-SourceCode/static/css/2.86df01db.chunk.css.map",
     "static/css/main.6eca340c.chunk.css.map": "/VKApp-Tournament-SourceCode/static/css/main.6eca340c.chunk.css.map",
-    "static/js/2.a2541ead.chunk.js.LICENSE.txt": "/VKApp-Tournament-SourceCode/static/js/2.a2541ead.chunk.js.LICENSE.txt"
+    "static/js/2.833170d5.chunk.js.LICENSE.txt": "/VKApp-Tournament-SourceCode/static/js/2.833170d5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.86d7d30c.js",
     "static/css/2.86df01db.chunk.css",
-    "static/js/2.a2541ead.chunk.js",
+    "static/js/2.833170d5.chunk.js",
     "static/css/main.6eca340c.chunk.css",
-    "static/js/main.ee1b0bab.chunk.js"
+    "static/js/main.a22312dc.chunk.js"
   ]
 }
