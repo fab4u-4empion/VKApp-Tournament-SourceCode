@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/VKApp-Tournament-SourceCode/precache-manifest.702ca05a0ee273b392d3a20c77881f85.js"
+  "/VKApp-Tournament-SourceCode/precache-manifest.9184285b86be51df98eedfe851643e4c.js"
 );
 
 self.addEventListener('message', (event) => {
