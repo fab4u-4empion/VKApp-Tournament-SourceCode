@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b833b07a37640b6e80bb8e8fa26cb373",
+    "revision": "20f2912f393dedab2db4f419565f93e7",
     "url": "/VKApp-Tournament-SourceCode/index.html"
   },
   {
