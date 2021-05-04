@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/VKApp-Tournament-SourceCode/static/css/main.3151f24b.chunk.css",
-    "main.js": "/VKApp-Tournament-SourceCode/static/js/main.ccc00045.chunk.js",
-    "main.js.map": "/VKApp-Tournament-SourceCode/static/js/main.ccc00045.chunk.js.map",
+    "main.js": "/VKApp-Tournament-SourceCode/static/js/main.26e64694.chunk.js",
+    "main.js.map": "/VKApp-Tournament-SourceCode/static/js/main.26e64694.chunk.js.map",
     "runtime-main.js": "/VKApp-Tournament-SourceCode/static/js/runtime-main.86d7d30c.js",
     "runtime-main.js.map": "/VKApp-Tournament-SourceCode/static/js/runtime-main.86d7d30c.js.map",
     "static/css/2.86df01db.chunk.css": "/VKApp-Tournament-SourceCode/static/css/2.86df01db.chunk.css",
     "static/js/2.833170d5.chunk.js": "/VKApp-Tournament-SourceCode/static/js/2.833170d5.chunk.js",
     "static/js/2.833170d5.chunk.js.map": "/VKApp-Tournament-SourceCode/static/js/2.833170d5.chunk.js.map",
     "index.html": "/VKApp-Tournament-SourceCode/index.html",
-    "precache-manifest.77db8e1ff68b7cc60eb90e404740d78c.js": "/VKApp-Tournament-SourceCode/precache-manifest.77db8e1ff68b7cc60eb90e404740d78c.js",
+    "precache-manifest.bc21c665db16d9aeded5d38c4893f3c0.js": "/VKApp-Tournament-SourceCode/precache-manifest.bc21c665db16d9aeded5d38c4893f3c0.js",
     "service-worker.js": "/VKApp-Tournament-SourceCode/service-worker.js",
     "static/css/2.86df01db.chunk.css.map": "/VKApp-Tournament-SourceCode/static/css/2.86df01db.chunk.css.map",
     "static/css/main.3151f24b.chunk.css.map": "/VKApp-Tournament-SourceCode/static/css/main.3151f24b.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.86df01db.chunk.css",
     "static/js/2.833170d5.chunk.js",
     "static/css/main.3151f24b.chunk.css",
-    "static/js/main.ccc00045.chunk.js"
+    "static/js/main.26e64694.chunk.js"
   ]
 }

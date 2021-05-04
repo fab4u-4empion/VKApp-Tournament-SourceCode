@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e4acc44a7c611cd89321481e2395a3ef",
+    "revision": "5da4ae429a88a617b30331cbcbdd3088",
     "url": "/VKApp-Tournament-SourceCode/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/VKApp-Tournament-SourceCode/static/css/2.86df01db.chunk.css"
   },
   {
-    "revision": "55f718f8ff652b9cfd95",
+    "revision": "8849005438263d725471",
     "url": "/VKApp-Tournament-SourceCode/static/css/main.3151f24b.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/VKApp-Tournament-SourceCode/static/js/2.833170d5.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "55f718f8ff652b9cfd95",
-    "url": "/VKApp-Tournament-SourceCode/static/js/main.ccc00045.chunk.js"
+    "revision": "8849005438263d725471",
+    "url": "/VKApp-Tournament-SourceCode/static/js/main.26e64694.chunk.js"
   },
   {
     "revision": "f4d876cfbf322a58db68",
