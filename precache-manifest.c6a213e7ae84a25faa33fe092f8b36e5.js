@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "16827ffc06794c481bb39fa9db4152d1",
+    "revision": "26712f229cc3ef50614c3f4b46c36b87",
     "url": "/VKApp-Tournament-SourceCode/index.html"
   },
   {
-    "revision": "fb558d3a490258be47b7",
+    "revision": "13ee7fefce05e501257d",
     "url": "/VKApp-Tournament-SourceCode/static/css/2.86df01db.chunk.css"
   },
   {
-    "revision": "6029710f11dd43ff1273",
+    "revision": "4e7a7d19716e80e6ef28",
     "url": "/VKApp-Tournament-SourceCode/static/css/main.3151f24b.chunk.css"
   },
   {
-    "revision": "fb558d3a490258be47b7",
-    "url": "/VKApp-Tournament-SourceCode/static/js/2.00b0a64b.chunk.js"
+    "revision": "13ee7fefce05e501257d",
+    "url": "/VKApp-Tournament-SourceCode/static/js/2.4df7009c.chunk.js"
   },
   {
     "revision": "84c0fb3b5e9c985532d69c2f9c3eba5b",
-    "url": "/VKApp-Tournament-SourceCode/static/js/2.00b0a64b.chunk.js.LICENSE.txt"
+    "url": "/VKApp-Tournament-SourceCode/static/js/2.4df7009c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6029710f11dd43ff1273",
-    "url": "/VKApp-Tournament-SourceCode/static/js/main.916f940e.chunk.js"
+    "revision": "4e7a7d19716e80e6ef28",
+    "url": "/VKApp-Tournament-SourceCode/static/js/main.5d87f86b.chunk.js"
   },
   {
     "revision": "f4d876cfbf322a58db68",
