@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/VKApp-Tournament-SourceCode/static/css/main.cb54bb7c.chunk.css",
-    "main.js": "/VKApp-Tournament-SourceCode/static/js/main.4161e03e.chunk.js",
-    "main.js.map": "/VKApp-Tournament-SourceCode/static/js/main.4161e03e.chunk.js.map",
+    "main.js": "/VKApp-Tournament-SourceCode/static/js/main.4fb99bda.chunk.js",
+    "main.js.map": "/VKApp-Tournament-SourceCode/static/js/main.4fb99bda.chunk.js.map",
     "runtime-main.js": "/VKApp-Tournament-SourceCode/static/js/runtime-main.c5514e33.js",
     "runtime-main.js.map": "/VKApp-Tournament-SourceCode/static/js/runtime-main.c5514e33.js.map",
     "static/css/2.3ca3203c.chunk.css": "/VKApp-Tournament-SourceCode/static/css/2.3ca3203c.chunk.css",
-    "static/js/2.742301fb.chunk.js": "/VKApp-Tournament-SourceCode/static/js/2.742301fb.chunk.js",
-    "static/js/2.742301fb.chunk.js.map": "/VKApp-Tournament-SourceCode/static/js/2.742301fb.chunk.js.map",
+    "static/js/2.a5bf051b.chunk.js": "/VKApp-Tournament-SourceCode/static/js/2.a5bf051b.chunk.js",
+    "static/js/2.a5bf051b.chunk.js.map": "/VKApp-Tournament-SourceCode/static/js/2.a5bf051b.chunk.js.map",
     "index.html": "/VKApp-Tournament-SourceCode/index.html",
     "static/css/2.3ca3203c.chunk.css.map": "/VKApp-Tournament-SourceCode/static/css/2.3ca3203c.chunk.css.map",
     "static/css/main.cb54bb7c.chunk.css.map": "/VKApp-Tournament-SourceCode/static/css/main.cb54bb7c.chunk.css.map",
-    "static/js/2.742301fb.chunk.js.LICENSE.txt": "/VKApp-Tournament-SourceCode/static/js/2.742301fb.chunk.js.LICENSE.txt",
+    "static/js/2.a5bf051b.chunk.js.LICENSE.txt": "/VKApp-Tournament-SourceCode/static/js/2.a5bf051b.chunk.js.LICENSE.txt",
     "static/media/style.css": "/VKApp-Tournament-SourceCode/static/media/Manrope-Regular.82b079af.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.c5514e33.js",
     "static/css/2.3ca3203c.chunk.css",
-    "static/js/2.742301fb.chunk.js",
+    "static/js/2.a5bf051b.chunk.js",
     "static/css/main.cb54bb7c.chunk.css",
-    "static/js/main.4161e03e.chunk.js"
+    "static/js/main.4fb99bda.chunk.js"
   ]
 }
