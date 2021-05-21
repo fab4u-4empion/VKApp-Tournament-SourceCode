@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/VKApp-Tournament-SourceCode/static/css/main.4b248315.chunk.css",
-    "main.js": "/VKApp-Tournament-SourceCode/static/js/main.6c209cc7.chunk.js",
-    "main.js.map": "/VKApp-Tournament-SourceCode/static/js/main.6c209cc7.chunk.js.map",
+    "main.js": "/VKApp-Tournament-SourceCode/static/js/main.7368d7cd.chunk.js",
+    "main.js.map": "/VKApp-Tournament-SourceCode/static/js/main.7368d7cd.chunk.js.map",
     "runtime-main.js": "/VKApp-Tournament-SourceCode/static/js/runtime-main.420ba59c.js",
     "runtime-main.js.map": "/VKApp-Tournament-SourceCode/static/js/runtime-main.420ba59c.js.map",
     "static/css/2.3ca3203c.chunk.css": "/VKApp-Tournament-SourceCode/static/css/2.3ca3203c.chunk.css",
@@ -24,6 +24,6 @@
     "static/css/2.3ca3203c.chunk.css",
     "static/js/2.a985da96.chunk.js",
     "static/css/main.4b248315.chunk.css",
-    "static/js/main.6c209cc7.chunk.js"
+    "static/js/main.7368d7cd.chunk.js"
   ]
 }
