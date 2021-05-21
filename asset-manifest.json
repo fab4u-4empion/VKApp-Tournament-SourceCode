@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/VKApp-Tournament-SourceCode/static/css/main.cb54bb7c.chunk.css",
-    "main.js": "/VKApp-Tournament-SourceCode/static/js/main.1949cc3d.chunk.js",
-    "main.js.map": "/VKApp-Tournament-SourceCode/static/js/main.1949cc3d.chunk.js.map",
+    "main.js": "/VKApp-Tournament-SourceCode/static/js/main.a8799bc1.chunk.js",
+    "main.js.map": "/VKApp-Tournament-SourceCode/static/js/main.a8799bc1.chunk.js.map",
     "runtime-main.js": "/VKApp-Tournament-SourceCode/static/js/runtime-main.a356bc19.js",
     "runtime-main.js.map": "/VKApp-Tournament-SourceCode/static/js/runtime-main.a356bc19.js.map",
     "static/css/2.3ca3203c.chunk.css": "/VKApp-Tournament-SourceCode/static/css/2.3ca3203c.chunk.css",
-    "static/js/2.09729ce0.chunk.js": "/VKApp-Tournament-SourceCode/static/js/2.09729ce0.chunk.js",
-    "static/js/2.09729ce0.chunk.js.map": "/VKApp-Tournament-SourceCode/static/js/2.09729ce0.chunk.js.map",
+    "static/js/2.611f492f.chunk.js": "/VKApp-Tournament-SourceCode/static/js/2.611f492f.chunk.js",
+    "static/js/2.611f492f.chunk.js.map": "/VKApp-Tournament-SourceCode/static/js/2.611f492f.chunk.js.map",
     "static/js/3.3790d749.chunk.js": "/VKApp-Tournament-SourceCode/static/js/3.3790d749.chunk.js",
     "static/js/3.3790d749.chunk.js.map": "/VKApp-Tournament-SourceCode/static/js/3.3790d749.chunk.js.map",
     "static/js/4.0c91fa1e.chunk.js": "/VKApp-Tournament-SourceCode/static/js/4.0c91fa1e.chunk.js",
@@ -15,15 +15,15 @@
     "index.html": "/VKApp-Tournament-SourceCode/index.html",
     "static/css/2.3ca3203c.chunk.css.map": "/VKApp-Tournament-SourceCode/static/css/2.3ca3203c.chunk.css.map",
     "static/css/main.cb54bb7c.chunk.css.map": "/VKApp-Tournament-SourceCode/static/css/main.cb54bb7c.chunk.css.map",
-    "static/js/2.09729ce0.chunk.js.LICENSE.txt": "/VKApp-Tournament-SourceCode/static/js/2.09729ce0.chunk.js.LICENSE.txt",
+    "static/js/2.611f492f.chunk.js.LICENSE.txt": "/VKApp-Tournament-SourceCode/static/js/2.611f492f.chunk.js.LICENSE.txt",
     "static/js/3.3790d749.chunk.js.LICENSE.txt": "/VKApp-Tournament-SourceCode/static/js/3.3790d749.chunk.js.LICENSE.txt",
     "static/media/style.css": "/VKApp-Tournament-SourceCode/static/media/Manrope-Regular.82b079af.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.a356bc19.js",
     "static/css/2.3ca3203c.chunk.css",
-    "static/js/2.09729ce0.chunk.js",
+    "static/js/2.611f492f.chunk.js",
     "static/css/main.cb54bb7c.chunk.css",
-    "static/js/main.1949cc3d.chunk.js"
+    "static/js/main.a8799bc1.chunk.js"
   ]
 }
