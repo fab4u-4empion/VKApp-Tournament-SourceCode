@@ -338,7 +338,7 @@ class FinishComponent extends React.Component {
             if (this.props.mode == "none") {
                 List = (<span></span>)
             } else {
-                var List = ( <Placeholder>Нет завершенных турниров</Placeholder>);
+                var List = ( <Placeholder>Нет завершённых турниров</Placeholder>);
             }
         }
         return(List);

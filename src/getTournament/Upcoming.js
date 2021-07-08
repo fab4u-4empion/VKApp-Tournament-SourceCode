@@ -13,9 +13,11 @@ import Icon16Done from '@vkontakte/icons/dist/16/done'
 import Icon16Cancel from '@vkontakte/icons/dist/16/cancel'
 import bridge from "@vkontakte/vk-bridge";
 import { Icon24Dismiss } from '@vkontakte/icons';
-import subscribeResult from '../subscribeNotification/notification_subscribe'
+import subscribeResult from '../notification/notification_subscribe'
+import unsubscribeResult from '../notification/notification_unsubscribe';
 import { Icon28NotificationAddOutline } from '@vkontakte/icons';
 import { Icon24NotificationCheckOutline } from '@vkontakte/icons';
+import getLaunchParams from '../getParams/search'
 
 var tournamentsID = []  
 var positionY 
@@ -35,7 +37,7 @@ function getPosition() {
 }
 
 var tournament = new XMLHttpRequest();
-    tournament.open("POST", "https://api.wotblitz.ru/wotb/tournaments/list/?application_id=132530213b8f23d4c0e1d1f423c307a9&status=finished", false)
+    tournament.open("POST", "https://api.wotblitz.ru/wotb/tournaments/list/?application_id=132530213b8f23d4c0e1d1f423c307a9&status=upcoming", false)
     tournament.send();
 
     var TournamentList = JSON.parse(tournament.responseText);
@@ -145,14 +147,29 @@ class UpcommingComponent extends React.Component {
                     this.setState({snackbar : snackbar})       
                 })
         } else {
-            activeBells.splice(activeBells.indexOf(elem.tournament_id), 1)
-            bellArrayModalAndroid[elem.tournament_id] = <Icon28NotificationAddOutline/>
-            bellArrayModalIOS[elem.tournament_id] = <Icon28NotificationAddOutline width={24} height={24}/>
-            bellArrayButtons[elem.tournament_id] = <Icon28NotificationAddOutline width={19} height={21}/>
-            this.setState({bellsAndroid: bellArrayModalAndroid})
-            this.setState({bellsIOS: bellArrayModalIOS})
-            this.setState({bellsButtons: bellArrayButtons})
-            this.setState({snackbar : snackbar})
+            unsubscribeResult(elem)
+                .then(() => {
+                    activeBells.splice(activeBells.indexOf(elem.tournament_id), 1)
+                    bellArrayModalAndroid[elem.tournament_id] = <Icon28NotificationAddOutline/>
+                    bellArrayModalIOS[elem.tournament_id] = <Icon28NotificationAddOutline width={24} height={24}/>
+                    bellArrayButtons[elem.tournament_id] = <Icon28NotificationAddOutline width={19} height={21}/>
+                    this.setState({bellsAndroid: bellArrayModalAndroid})
+                    this.setState({bellsIOS: bellArrayModalIOS})
+                    this.setState({bellsButtons: bellArrayButtons})
+                })
+                .catch(() => {
+                    snackbar =
+                        <Snackbar
+                            onClose={() => 
+                                this.setState({ snackbar: null })
+                            }
+                            duration="1500"
+                            before={<Avatar size={24} style={{ background: 'var(--red)' }}><Icon16Cancel fill="#fff" width={14} height={14} /></Avatar>}
+                        >
+                            Ошибка при отписке от уведомления
+                        </Snackbar> 
+                    this.setState({snackbar : snackbar})     
+                })
         }
     }
 
@@ -269,6 +286,48 @@ class UpcommingComponent extends React.Component {
         if (window.location.hash != '' && !isOpenedFirstTime && tournamentsID.indexOf(Number(window.location.hash.slice(1))) != -1) {
             this.setActiveModal(Number(window.location.hash.slice(1)))
             isOpenedFirstTime = true
+        }
+
+        var activeSubscriptions = new XMLHttpRequest()
+        var params = getLaunchParams()
+        activeSubscriptions.open('GET', `https://wotbtournamentvkapp.ru/vkapp/activeSubscriptions?user_id=${params.vk_user_id}`, true)
+        activeSubscriptions.send()
+        activeSubscriptions.onload = () => {
+            try {
+                activeBells = JSON.parse(activeSubscriptions.responseText)  
+            } catch (error) {
+                console.log(error)
+            }
+            bellArrayButtons = TournamentList['data'].reduce(
+                (p, e) => {
+                    if (activeBells.indexOf(e.tournament_id) != -1) 
+                        p[e.tournament_id] = <Icon24NotificationCheckOutline width={19} height={21}/>
+                    else
+                        p[e.tournament_id] = <Icon28NotificationAddOutline width={19} height={21}/>
+                    return p
+                }, {}
+            )
+            bellArrayModalAndroid = TournamentList['data'].reduce(
+                (p, e) => {
+                    if (activeBells.indexOf(e.tournament_id) != -1)
+                        p[e.tournament_id] = <Icon24NotificationCheckOutline width={28} height={28}/>
+                    else
+                        p[e.tournament_id] = <Icon28NotificationAddOutline/>
+                    return p
+                }, {}
+            )
+            bellArrayModalIOS = TournamentList['data'].reduce(
+                (p, e) => {
+                    if (activeBells.indexOf(e.tournament_id) != -1)
+                        p[e.tournament_id] = <Icon24NotificationCheckOutline/>
+                    else    
+                        p[e.tournament_id] = <Icon28NotificationAddOutline width={24} height={24}/>
+                    return p
+                }, {}
+            ) 
+            this.setState({bellsAndroid: bellArrayModalAndroid})
+            this.setState({bellsIOS: bellArrayModalIOS})
+            this.setState({bellsButtons: bellArrayButtons})
         }
     }
 

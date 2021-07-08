@@ -12,10 +12,12 @@ import {Snackbar, Avatar, ActionSheetItem, ActionSheet} from '@vkontakte/vkui'
 import Icon16Done from '@vkontakte/icons/dist/16/done'
 import Icon16Cancel from '@vkontakte/icons/dist/16/cancel'
 import bridge from "@vkontakte/vk-bridge";
-import { Icon20NotificationOutline } from '@vkontakte/icons';
-import { Icon24NotificationOutline } from '@vkontakte/icons';
 import { Icon24Dismiss } from '@vkontakte/icons';
-import { Icon28Notifications } from '@vkontakte/icons';
+import subscribeResult from '../notification/notification_subscribe'
+import unsubscribeResult from '../notification/notification_unsubscribe';
+import { Icon28NotificationAddOutline } from '@vkontakte/icons';
+import { Icon24NotificationCheckOutline } from '@vkontakte/icons';
+import getLaunchParams from '../getParams/search'
 
 var tournament = new XMLHttpRequest();
     tournament.open("POST", "https://api.wotblitz.ru/wotb/tournaments/list/?application_id=132530213b8f23d4c0e1d1f423c307a9&status=registration_finished", false)
@@ -40,6 +42,10 @@ var tournament = new XMLHttpRequest();
     var positionX
     var stylesIsUpdated
     var buttonHeight
+    var bellArrayButtons = {}
+    var bellArrayModalAndroid = {}
+    var bellArrayModalIOS = {}
+    var activeBells = []
 
     function getPosition() {
         stylesIsUpdated = false
@@ -51,6 +57,36 @@ var tournament = new XMLHttpRequest();
     TournamentList['data'].map((elem) => {
         tournamentsID.push(elem.tournament_id)
     })
+
+    bellArrayButtons = TournamentList['data'].reduce(
+        (p, e) => {
+            if (activeBells.indexOf(e.tournament_id) != -1) 
+                p[e.tournament_id] = <Icon24NotificationCheckOutline width={19} height={21}/>
+            else
+                p[e.tournament_id] = <Icon28NotificationAddOutline width={19} height={21}/>
+            return p
+        }, {}
+    )
+
+    bellArrayModalAndroid = TournamentList['data'].reduce(
+        (p, e) => {
+            if (activeBells.indexOf(e.tournament_id) != -1)
+                p[e.tournament_id] = <Icon24NotificationCheckOutline width={28} height={28}/>
+            else
+                p[e.tournament_id] = <Icon28NotificationAddOutline/>
+            return p
+        }, {}
+    )
+
+    bellArrayModalIOS = TournamentList['data'].reduce(
+        (p, e) => {
+            if (activeBells.indexOf(e.tournament_id) != -1)
+                p[e.tournament_id] = <Icon24NotificationCheckOutline/>
+            else    
+                p[e.tournament_id] = <Icon28NotificationAddOutline width={24} height={24}/>
+            return p
+        }, {}
+    )
     
 
 class RegFinishComponent extends React.Component {
@@ -62,7 +98,10 @@ class RegFinishComponent extends React.Component {
             modalHistory: [],
             popout: null,
             snackbar: null,
-            elem: null
+            elem: null,
+            bellsButtons: bellArrayButtons,
+            bellsAndroid: bellArrayModalAndroid,
+            bellsIOS: bellArrayModalIOS
         };
 
         this.sendPost = this.sendPost.bind(this)
@@ -72,6 +111,68 @@ class RegFinishComponent extends React.Component {
         this.modalBack = () => {
             this.setActiveModal(this.state.modalHistory[this.state.modalHistory.length - 2]);
         };
+    }
+
+    subscribeToNotification(elem) {
+        var snackbar
+        if (activeBells.indexOf(elem.tournament_id) == -1) {
+            subscribeResult(elem)
+                .then(() => {
+                    activeBells.push(elem.tournament_id)
+                    bellArrayModalAndroid[elem.tournament_id] = <Icon24NotificationCheckOutline width={28} height={28}/>
+                    bellArrayModalIOS[elem.tournament_id] = <Icon24NotificationCheckOutline/>
+                    bellArrayButtons[elem.tournament_id] = <Icon24NotificationCheckOutline width={19} height={21}/>
+                    this.setState({bellsAndroid: bellArrayModalAndroid})
+                    this.setState({bellsIOS: bellArrayModalIOS})
+                    this.setState({bellsButtons: bellArrayButtons})
+                    snackbar =
+                        <Snackbar
+                            onClose={() => this.setState({ snackbar: null })}
+                            duration="2000"
+                            before={<Avatar size={24} style={{ background: 'var(--green)' }}><Icon16Done fill="#fff" width={14} height={14} /></Avatar>}
+                        >
+                            Вы будете уведомлены о начале боёв турнира
+                        </Snackbar>
+                    this.setState({snackbar : snackbar})    
+                })
+                .catch(() => {
+                    snackbar =
+                        <Snackbar
+                            onClose={() => 
+                                this.setState({ snackbar: null })
+                            }
+                            duration="1500"
+                            before={<Avatar size={24} style={{ background: 'var(--red)' }}><Icon16Cancel fill="#fff" width={14} height={14} /></Avatar>}
+                        >
+                            Ошибка при подписке на уведомление
+                        </Snackbar> 
+                    this.setState({snackbar : snackbar})       
+                })
+        } else {
+            unsubscribeResult(elem)
+                .then(() => {
+                    activeBells.splice(activeBells.indexOf(elem.tournament_id), 1)
+                    bellArrayModalAndroid[elem.tournament_id] = <Icon28NotificationAddOutline/>
+                    bellArrayModalIOS[elem.tournament_id] = <Icon28NotificationAddOutline width={24} height={24}/>
+                    bellArrayButtons[elem.tournament_id] = <Icon28NotificationAddOutline width={19} height={21}/>
+                    this.setState({bellsAndroid: bellArrayModalAndroid})
+                    this.setState({bellsIOS: bellArrayModalIOS})
+                    this.setState({bellsButtons: bellArrayButtons})
+                })
+                .catch(() => {
+                    snackbar =
+                        <Snackbar
+                            onClose={() => 
+                                this.setState({ snackbar: null })
+                            }
+                            duration="1500"
+                            before={<Avatar size={24} style={{ background: 'var(--red)' }}><Icon16Cancel fill="#fff" width={14} height={14} /></Avatar>}
+                        >
+                            Ошибка при отписке от уведомления
+                        </Snackbar> 
+                    this.setState({snackbar : snackbar})     
+                })
+        }
     }
 
     buildRequest(elem) {
@@ -186,6 +287,48 @@ class RegFinishComponent extends React.Component {
             this.setActiveModal(Number(window.location.hash.slice(1)))
             isOpenedFirstTime = true
         }
+
+        var activeSubscriptions = new XMLHttpRequest()
+        var params = getLaunchParams()
+        activeSubscriptions.open('GET', `https://wotbtournamentvkapp.ru/vkapp/activeSubscriptions?user_id=${params.vk_user_id}`, true)
+        activeSubscriptions.send()
+        activeSubscriptions.onload = () => {
+            try {
+                activeBells = JSON.parse(activeSubscriptions.responseText)  
+            } catch (error) {
+                console.log(error)
+            }
+            bellArrayButtons = TournamentList['data'].reduce(
+                (p, e) => {
+                    if (activeBells.indexOf(e.tournament_id) != -1) 
+                        p[e.tournament_id] = <Icon24NotificationCheckOutline width={19} height={21}/>
+                    else
+                        p[e.tournament_id] = <Icon28NotificationAddOutline width={19} height={21}/>
+                    return p
+                }, {}
+            )
+            bellArrayModalAndroid = TournamentList['data'].reduce(
+                (p, e) => {
+                    if (activeBells.indexOf(e.tournament_id) != -1)
+                        p[e.tournament_id] = <Icon24NotificationCheckOutline width={28} height={28}/>
+                    else
+                        p[e.tournament_id] = <Icon28NotificationAddOutline/>
+                    return p
+                }, {}
+            )
+            bellArrayModalIOS = TournamentList['data'].reduce(
+                (p, e) => {
+                    if (activeBells.indexOf(e.tournament_id) != -1)
+                        p[e.tournament_id] = <Icon24NotificationCheckOutline/>
+                    else    
+                        p[e.tournament_id] = <Icon28NotificationAddOutline width={24} height={24}/>
+                    return p
+                }, {}
+            ) 
+            this.setState({bellsAndroid: bellArrayModalAndroid})
+            this.setState({bellsIOS: bellArrayModalIOS})
+            this.setState({bellsButtons: bellArrayButtons})
+        }
     }
 
     componentDidUpdate() {
@@ -215,25 +358,6 @@ class RegFinishComponent extends React.Component {
 
         const platform = this.props.platform
 
-        var leftItem
-        var rightItem
-
-        if (isMobile) {
-            switch (platform) {
-                case IOS:
-                    rightItem = <PanelHeaderButton onClick={this.modalBack}><Icon24Dismiss/></PanelHeaderButton> 
-                    leftItem = <PanelHeaderButton><Icon24NotificationOutline/></PanelHeaderButton> 
-                    break
-                
-                case ANDROID:
-                    leftItem = <PanelHeaderClose onClick={this.modalBack}></PanelHeaderClose>
-                    rightItem = <PanelHeaderButton><Icon28Notifications/></PanelHeaderButton> 
-                    break    
-            }
-        } else {
-            rightItem = <PanelHeaderButton><Icon28Notifications/></PanelHeaderButton> 
-        }
-
         if (TournamentList.data.length !== 0) {
             const Modal = (
                 <ModalRoot activeModal={this.state.activeModal} onClose={this.modalBack}>
@@ -243,8 +367,18 @@ class RegFinishComponent extends React.Component {
                                 onClose={this.modalBack}
                                 header={
                                     <ModalPageHeader
-                                        right={rightItem}
-                                        left={leftItem}
+                                        left={
+                                            (isMobile && platform === IOS && <PanelHeaderButton onClick={() => this.subscribeToNotification(elem)}>{this.state.bellsIOS[elem.tournament_id]}</PanelHeaderButton>)
+                                            ||
+                                            (isMobile && platform === ANDROID && <PanelHeaderClose onClick={this.modalBack}></PanelHeaderClose>)
+                                        }
+                                        right={
+                                            isMobile && (platform === IOS && <PanelHeaderButton onClick={this.modalBack}><Icon24Dismiss/></PanelHeaderButton> )
+                                            ||
+                                            (isMobile && platform === ANDROID && <PanelHeaderButton onClick={() => this.subscribeToNotification(elem)}>{this.state.bellsAndroid[elem.tournament_id]}</PanelHeaderButton>)
+                                            ||
+                                            (<PanelHeaderButton onClick={() => this.subscribeToNotification(elem)}>{this.state.bellsAndroid[elem.tournament_id]}</PanelHeaderButton>)
+                                        }
                                     >
                                         Информация 
                                     </ModalPageHeader>
@@ -342,7 +476,7 @@ class RegFinishComponent extends React.Component {
                                                 <div className="TornamentCard__Footer">
                                                     <Button className="TornamentCard__Footer-Button" mode="outline" before={<Icon16InfoOutline/>} onClick={() => this.setActiveModal(elem.tournament_id)}>Подробнее</Button> 
                                                     <Button className="TornamentCard__Footer-Button TornamentCard__Footer-SmallButton" mode="outline" getRootRef={this.shareTargetRef} onClick={() => this.openShareActionSheet(elem)}><Icon16ReplyOutline/></Button>
-                                                    <Button className="TornamentCard__Footer-Button TornamentCard__Footer-SmallButton" mode="outline"><Icon20NotificationOutline width={19} height={21}/></Button>
+                                                    <Button className="TornamentCard__Footer-Button TornamentCard__Footer-SmallButton" mode="outline"onClick={() => this.subscribeToNotification(elem)}>{this.state.bellsButtons[elem.tournament_id]}</Button>
                                                 </div> 
                                             </div>
                                     </Card>
@@ -357,7 +491,7 @@ class RegFinishComponent extends React.Component {
             if (this.props.mode == "none") {
                 List = (<span></span>)
             } else {
-                var List = ( <Placeholder>Нет турниров с завершенной регистрацией</Placeholder>);
+                var List = ( <Placeholder>Нет турниров с завершённой регистрацией</Placeholder>);
             }
         }
         return(List);
