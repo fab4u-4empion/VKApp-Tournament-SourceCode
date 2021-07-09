@@ -19,6 +19,7 @@ import { Icon28NotificationAddOutline } from '@vkontakte/icons';
 import { Icon24NotificationCheckOutline } from '@vkontakte/icons';
 import getLaunchParams from '../getParams/search'
 
+var isOpenedFirstTime = false 
 var tournamentsID = []  
 var positionY 
 var positionX
