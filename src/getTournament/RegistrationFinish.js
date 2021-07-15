@@ -290,7 +290,7 @@ class RegFinishComponent extends React.Component {
 
         var activeSubscriptions = new XMLHttpRequest()
         var params = getLaunchParams()
-        activeSubscriptions.open('GET', `https://wotbtournamentvkapp.ru/vkapp/activeSubscriptions?user_id=${params.vk_user_id}`, true)
+        activeSubscriptions.open('GET', `https://wotbtournamentvkapp.ru/vkapp/activeSubscriptions${window.location.search}&user_id=${params.vk_user_id}`, true)
         activeSubscriptions.send()
         activeSubscriptions.onload = () => {
             try {
