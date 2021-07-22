@@ -15,7 +15,6 @@ bridge.send("VKWebAppInit");
 bridge.subscribe((e) => {
     if (e.detail.type === "VKWebAppUpdateConfig") {
         document.body.setAttribute("scheme", e.detail.data.scheme);
-        document.html.setAttribute("scheme", e.detail.data.scheme);
     }
 });
 

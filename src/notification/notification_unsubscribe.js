@@ -1,9 +1,6 @@
-import getLaunchParams from '../getParams/search'
-
 function unsubscribeResult(tournamentInfo) {
     var unsubscribe = new Promise((resolve, reject) => {
-        var params = getLaunchParams()
-        var url = `https://wotbtournamentvkapp.ru/vkapp/unsubscribe${window.location.search}&tournament_id=${tournamentInfo.tournament_id}&user_id=${params.vk_user_id}`
+        var url = `https://wotbtournamentvkapp.ru/vkapp/unsubscribe${window.location.search}&tournament_id=${tournamentInfo.tournament_id}`
         var request = new XMLHttpRequest()
         request.open('GET', url, true)
         request.send()

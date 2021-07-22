@@ -17,7 +17,6 @@ import subscribeResult from '../notification/notification_subscribe'
 import unsubscribeResult from '../notification/notification_unsubscribe';
 import { Icon28NotificationAddOutline } from '@vkontakte/icons';
 import { Icon24NotificationCheckOutline } from '@vkontakte/icons';
-import getLaunchParams from '../getParams/search'
 
 
 var tournament = new XMLHttpRequest();
@@ -289,8 +288,7 @@ class RegStartComponent extends React.Component {
         }
 
         var activeSubscriptions = new XMLHttpRequest()
-        var params = getLaunchParams()
-        activeSubscriptions.open('GET', `https://wotbtournamentvkapp.ru/vkapp/activeSubscriptions${window.location.search}&user_id=${params.vk_user_id}`, true)
+        activeSubscriptions.open('GET', `https://wotbtournamentvkapp.ru/vkapp/activeSubscriptions${window.location.search}`, true)
         activeSubscriptions.send()
         activeSubscriptions.onload = () => {
             try {
