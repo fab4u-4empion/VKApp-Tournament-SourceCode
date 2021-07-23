@@ -236,7 +236,8 @@ class UpcommingComponent extends React.Component {
         let link = "https://vk.com/app7446072#" + this.state.elem.tournament_id
 
         if (isDesktop) {
-            navigator.clipboard.writeText(link)
+            bridge
+            .send("VKWebAppCopyText", {text: link})
             .then(() => {
                 if (this.state.snackbar) return
                 this.setState({snackbar: successSnackbar})    
@@ -244,7 +245,7 @@ class UpcommingComponent extends React.Component {
             .catch(() => {
                 if (this.state.snackbar) return
                 this.setState({snackbar: errorSnackbar})    
-            })   
+            })    
         } else {
             bridge
             .send("VKWebAppShare", {"link": link})

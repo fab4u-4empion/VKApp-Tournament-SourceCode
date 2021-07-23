@@ -247,13 +247,14 @@ class RegStartComponent extends React.Component {
                 duration="2000"
                 before={<Avatar size={24} style={{ background: 'var(--red)' }}><Icon16Cancel fill="#fff" width={14} height={14} /></Avatar>}
             >
-                Ошибка при отправке ссылки
+                {isDesktop ? 'Ошибка при копировании ссылки' : 'Ошибка при отправке ссылки'}
             </Snackbar>
 
         let link = "https://vk.com/app7446072#" + this.state.elem.tournament_id
 
         if (isDesktop) {
-            navigator.clipboard.writeText(link)
+            bridge
+            .send("VKWebAppCopyText", {text: link})
             .then(() => {
                 if (this.state.snackbar) return
                 this.setState({snackbar: successSnackbar})    
@@ -261,7 +262,7 @@ class RegStartComponent extends React.Component {
             .catch(() => {
                 if (this.state.snackbar) return
                 this.setState({snackbar: errorSnackbar})    
-            })   
+            })     
         } else {
             bridge
             .send("VKWebAppShare", {"link": link})
