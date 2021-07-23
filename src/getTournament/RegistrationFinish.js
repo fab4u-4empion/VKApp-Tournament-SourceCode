@@ -106,6 +106,10 @@ class RegFinishComponent extends React.Component {
         this.sendPost = this.sendPost.bind(this)
         this.shareTargetRef = React.createRef();
         this.shareLink = this.shareLink.bind(this)
+
+        this.closeActionSheet = () => {
+            this.setState({ popout: null })
+        }
     
         this.modalBack = () => {
             this.setActiveModal(this.state.modalHistory[this.state.modalHistory.length - 2]);
@@ -361,6 +365,11 @@ class RegFinishComponent extends React.Component {
     }
 
     render() {
+
+        window.addEventListener('scroll', () => {
+            if (this.state.popout != null)
+                this.closeActionSheet()
+        })
 
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
         const isMobile = this.props.viewWidth <= ViewWidth.MOBILE;
