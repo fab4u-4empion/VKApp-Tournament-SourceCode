@@ -44,10 +44,10 @@ class Application extends React.Component {
 			<View>
 				<Panel>
 					<PanelHeader>Tурниры WoT Blitz</PanelHeader>
-					<Group style={{paddingTop: 35}}>
+					<Group style={{paddingTop: 40}}>
 						<FixedLayout vertical="top" filled>
-							<Tabs mode="buttons">
-								<HorizontalScroll>
+							<Tabs>
+								<HorizontalScroll showArrows getScrollToLeft={i => i - 120} getScrollToRight={i => i + 120}>
 									<TabsItem
 										onClick={() => {
 												this.setState({activeTab: 'all'})

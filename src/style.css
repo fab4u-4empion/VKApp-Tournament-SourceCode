@@ -186,3 +186,7 @@ h4 {
         padding-right: 10px!important;    
     }    
 }
+
+.vkuiPanelHeader__separator {
+    display: none;
+}
