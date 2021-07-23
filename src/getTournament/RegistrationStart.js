@@ -215,31 +215,26 @@ class RegStartComponent extends React.Component {
                 Запись опубликована
             </Snackbar> 
 
-        const errorSnackbar =
-            <Snackbar
-                onClose={() =>
-                    this.setState({ snackbar: null })
-                }
-                duration="2000"
-                before={<Avatar size={24} style={{ background: 'var(--red)' }}><Icon16Cancel fill="#fff" width={14} height={14} /></Avatar>}
-            >
-                Ошибка при публикации записи
-            </Snackbar>
-
         let request = this.buildRequest(this.state.elem)
         bridge
         .send("VKWebAppShowWallPostBox", request)
         .then(data => {
             if (this.state.snackbar) return
             this.setState({snackbar: successSnackbar})
-        }) 
-        .catch(error => {
-            if (this.state.snackbar) return
-            this.setState({snackbar: errorSnackbar})
         })     
     }
 
     shareLink() {
+        const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
+        const successSnackbar =
+            <Snackbar
+                onClose={() => this.setState({ snackbar: null })}
+                duration="2000"
+                before={<Avatar size={24} style={{ background: 'var(--green)' }}><Icon16Done fill="#fff" width={14} height={14} /></Avatar>}
+            >
+                {isDesktop ? 'Ссылка скопирована' : 'Ссылка отправлена'}
+            </Snackbar> 
+
         const errorSnackbar =
             <Snackbar
                 onClose={() => 
@@ -253,16 +248,32 @@ class RegStartComponent extends React.Component {
 
         let link = "https://vk.com/app7446072#" + this.state.elem.tournament_id
 
-        bridge
-            .send("VKWebAppShare", {"link": link})
-            .catch(error => {
+        if (isDesktop) {
+            navigator.clipboard.writeText(link)
+            .then(() => {
                 if (this.state.snackbar) return
-                this.setState({snackbar: errorSnackbar})
-            })      
+                this.setState({snackbar: successSnackbar})    
+            })   
+            .catch(() => {
+                if (this.state.snackbar) return
+                this.setState({snackbar: errorSnackbar})    
+            })   
+        } else {
+            bridge
+            .send("VKWebAppShare", {"link": link})
+            .then(data => {
+                const isDesktop = this.props.viewWidth > ViewWidth.MOBILE
+                if (isDesktop) {
+                    if (this.state.snackbar) return
+                    this.setState({snackbar: successSnackbar})    
+                }
+            })
+        }         
     }
 
     openShareActionSheet(e) {
         getPosition()
+        const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
         this.setState({elem: e})
         this.setState({ popout:
             <ActionSheet 
@@ -275,7 +286,7 @@ class RegStartComponent extends React.Component {
                     На стене
                 </ActionSheetItem>
                 <ActionSheetItem autoclose onClick={() => this.shareLink()}>
-                    Отправить ссылку
+                    {isDesktop ? 'Скопировать ссылку' : 'Отправить ссылку'}
                 </ActionSheetItem>
           </ActionSheet>
         });
