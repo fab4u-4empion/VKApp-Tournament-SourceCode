@@ -39,6 +39,7 @@ var buttonHeight
 
 TournamentList['data'].map((elem) => {
     tournamentsID.push(elem.tournament_id)
+    sessionStorage.setItem(elem.tournament_id, true)
 })
 
 function getPosition() {

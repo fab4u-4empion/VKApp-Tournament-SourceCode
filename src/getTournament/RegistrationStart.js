@@ -18,7 +18,6 @@ import unsubscribeResult from '../notification/notification_unsubscribe';
 import { Icon28NotificationAddOutline } from '@vkontakte/icons';
 import { Icon24NotificationCheckOutline } from '@vkontakte/icons';
 
-
 var tournament = new XMLHttpRequest();
     tournament.open("POST", "https://api.wotblitz.ru/wotb/tournaments/list/?application_id=132530213b8f23d4c0e1d1f423c307a9&status=registration_started", false)
     tournament.send();
@@ -46,9 +45,13 @@ var bellArrayButtons = {}
 var bellArrayModalAndroid = {}
 var bellArrayModalIOS = {}
 var activeBells = []
+var windowFocus = false
+var windowFocusCounter = 0
+var windowFocusTime
 
 TournamentList['data'].map((elem) => {
     tournamentsID.push(elem.tournament_id)
+    sessionStorage.setItem(elem.tournament_id, true)
 })
 
 function getPosition() {
@@ -198,7 +201,7 @@ class RegStartComponent extends React.Component {
 
     buildRequest(elem) {
         let request
-        let message =   "Началась регистрация на турнир турнир \"" + elem.title + "\"" +
+        let message =   "Началась регистрация на турнир \"" + elem.title + "\"" +
                         "\nОкончание регистрации: " + TimeStr(elem.registration_end_at, "dayAndTime") +
                         "\nНачало боев: " + TimeStr(elem.start_at, "dayAndTime") +
                         "\nПодробнее можно узнать в приложении:"
@@ -297,12 +300,7 @@ class RegStartComponent extends React.Component {
         });
     }
 
-    componentDidMount() {
-        if (window.location.hash != '' && !isOpenedFirstTime && tournamentsID.indexOf(Number(window.location.hash.slice(1))) != -1) {
-            this.setActiveModal(Number(window.location.hash.slice(1)))
-            isOpenedFirstTime = true
-        }
-
+    checkSubscriptions() {
         var activeSubscriptions = new XMLHttpRequest()
         activeSubscriptions.open('GET', `https://wotbtournamentvkapp.ru/vkapp/activeSubscriptions${window.location.search}`, true)
         activeSubscriptions.send()
@@ -345,6 +343,15 @@ class RegStartComponent extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (window.location.hash != '' && !isOpenedFirstTime && tournamentsID.indexOf(Number(window.location.hash.slice(1))) != -1) {
+            this.setActiveModal(Number(window.location.hash.slice(1)))
+            isOpenedFirstTime = true
+        }
+        this.checkSubscriptions()
+        windowFocusTime = new Date().getTime()
+    }
+
     componentDidUpdate() {
         var elem = document.getElementsByClassName("vkuiActionSheet--desktop")
         if (elem[0]) {
@@ -370,6 +377,30 @@ class RegStartComponent extends React.Component {
         window.addEventListener('scroll', () => {
             if (this.state.popout != null)
                 this.closeActionSheet()
+        })
+
+        window.addEventListener("focus", () => {
+            if(!windowFocus && windowFocusCounter < 6) {
+                this.checkSubscriptions()
+                windowFocus = true
+                windowFocusCounter += 1
+                var d = new Date().getTime()
+                if (d - windowFocusTime > 2500) {
+                    windowFocusCounter = 0
+                    windowFocusTime = new Date().getTime()
+                }
+                if (windowFocusCounter == 6) {
+                    setTimeout(() => {
+                        windowFocusCounter = 0
+                    }, 30000)
+                } 
+            }
+        })
+
+        window.addEventListener("blur", () => {
+            if(windowFocus) {
+                windowFocus = false
+            }
         })
 
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
@@ -451,7 +482,7 @@ class RegStartComponent extends React.Component {
                                             </span>
                                             <br/>
                                             <span style={{display: "inline-flex", alignItems: "center"}}>
-                                                <span style={{fontWeight: "450"}}>Подтвердило участие:&nbsp;</span> {tournamentInfo[elem["tournament_id"]].confirmed}
+                                                <span style={{fontWeight: "450"}}>Подтвердило участие:&nbsp;</span> {tournamentInfo[elem["tournament_id"]].confirmed == null ? 0 : tournamentInfo[elem["tournament_id"]].confirmed}
                                             </span>
                                         </div>
                                         

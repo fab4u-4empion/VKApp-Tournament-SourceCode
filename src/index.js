@@ -6,7 +6,6 @@ import bridge from "@vkontakte/vk-bridge";
 import '@vkontakte/vkui/dist/vkui.css';
 import App from "./App";
 import './style.css';
-import getLaunchParams from './getParams/search'
 
 
 // Init VK  Mini App

@@ -45,6 +45,9 @@ var tournament = new XMLHttpRequest();
     var bellArrayModalAndroid = {}
     var bellArrayModalIOS = {}
     var activeBells = []
+    var windowFocus = false
+    var windowFocusCounter = 0
+    var windowFocusTime
 
     function getPosition() {
         stylesIsUpdated = false
@@ -55,6 +58,7 @@ var tournament = new XMLHttpRequest();
     
     TournamentList['data'].map((elem) => {
         tournamentsID.push(elem.tournament_id)
+        sessionStorage.setItem(elem.tournament_id, true)
     })
 
     bellArrayButtons = TournamentList['data'].reduce(
@@ -173,6 +177,7 @@ class RegFinishComponent extends React.Component {
                         >
                             Ошибка при отписке от уведомления
                         </Snackbar> 
+                    if (this.state.snackbar) return
                     this.setState({snackbar : snackbar})     
                 })
         }
@@ -297,12 +302,7 @@ class RegFinishComponent extends React.Component {
         });
     };
 
-    componentDidMount() {
-        if (window.location.hash != '' && !isOpenedFirstTime && tournamentsID.indexOf(Number(window.location.hash.slice(1))) != -1) {
-            this.setActiveModal(Number(window.location.hash.slice(1)))
-            isOpenedFirstTime = true
-        }
-
+    checkSubscriptions() {
         var activeSubscriptions = new XMLHttpRequest()
         activeSubscriptions.open('GET', `https://wotbtournamentvkapp.ru/vkapp/activeSubscriptions${window.location.search}`, true)
         activeSubscriptions.send()
@@ -345,6 +345,15 @@ class RegFinishComponent extends React.Component {
         }
     }
 
+    componentDidMount() {
+        if (window.location.hash != '' && !isOpenedFirstTime && tournamentsID.indexOf(Number(window.location.hash.slice(1))) != -1) {
+            this.setActiveModal(Number(window.location.hash.slice(1)))
+            isOpenedFirstTime = true
+        }
+        this.checkSubscriptions()
+        windowFocusTime = new Date().getTime()
+    }
+
     componentDidUpdate() {
         var elem = document.getElementsByClassName("vkuiActionSheet--desktop")
         if (elem[0]) {
@@ -370,6 +379,30 @@ class RegFinishComponent extends React.Component {
         window.addEventListener('scroll', () => {
             if (this.state.popout != null)
                 this.closeActionSheet()
+        })
+
+        window.addEventListener("focus", () => {
+            if(!windowFocus && windowFocusCounter < 6) {
+                this.checkSubscriptions()
+                windowFocus = true
+                windowFocusCounter += 1
+                var d = new Date().getTime()
+                if (d - windowFocusTime > 2500) {
+                    windowFocusCounter = 0
+                    windowFocusTime = new Date().getTime()
+                }
+                if (windowFocusCounter == 6) {
+                    setTimeout(() => {
+                        windowFocusCounter = 0
+                    }, 30000)
+                } 
+            }
+        })
+
+        window.addEventListener("blur", () => {
+            if(windowFocus) {
+                windowFocus = false
+            }
         })
 
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;

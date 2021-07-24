@@ -1,5 +1,5 @@
 function TimeStr (timestamp, mode) {
-    var time = new Date(timestamp*1000);
+    var time = new Date.UTC(timestamp*1000);
 
     var hour = time.getHours();
     var minute = time.getMinutes();
@@ -38,16 +38,16 @@ function TimeStr (timestamp, mode) {
 
     switch (mode) {
         case "day":
-            return (time.getDate() + " " + month[monthNum] + " " + year)
+            return (time.getDate() + " " + month[monthNum] + " " + year + " (UTC)")
 
         case "time":
             return ( hour+":"+minute )
 
         case "dayAndTime":
-            return ( day+"."+monthNumeric+", "+hour+":"+minute )    
+            return ( day+"."+monthNumeric+", "+hour+":"+minute + " (UTC)")    
             
         default:            
-            return ( day+"."+monthNumeric+"."+year+", "+hour+":"+minute); 
+            return ( day+"."+monthNumeric+"."+year+", "+hour+":"+minute + " (UTC)"); 
     }  
 }
 
