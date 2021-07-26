@@ -21,6 +21,7 @@ import { Icon24NotificationCheckOutline } from '@vkontakte/icons';
 var tournament = new XMLHttpRequest();
     tournament.open("POST", "https://api.wotblitz.ru/wotb/tournaments/list/?application_id=132530213b8f23d4c0e1d1f423c307a9&status=registration_finished", false)
     tournament.send();
+    console.log(Date.now())
 
     var TournamentList = JSON.parse(tournament.responseText);
 
@@ -526,7 +527,7 @@ class RegFinishComponent extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="TornamentCard__Footer">
-                                                    <Button className="TornamentCard__Footer-Button" mode="outline" before={<Icon16InfoOutline/>} onClick={() => this.setActiveModal(elem.tournament_id)}>Подробнее</Button> 
+                                                    <Button className="TornamentCard__Footer-Button TornamentCard__Footer-InfoButton" mode="outline" before={<Icon16InfoOutline/>} onClick={() => this.setActiveModal(elem.tournament_id)}>Подробнее</Button> 
                                                     <Button className="TornamentCard__Footer-Button TornamentCard__Footer-SmallButton" mode="outline" getRootRef={this.shareTargetRef} onClick={() => this.openShareActionSheet(elem)}><Icon16ReplyOutline/></Button>
                                                     <Button className="TornamentCard__Footer-Button TornamentCard__Footer-SmallButton" mode="outline"onClick={() => this.subscribeToNotification(elem)}>{this.state.bellsButtons[elem.tournament_id]}</Button>
                                                 </div> 

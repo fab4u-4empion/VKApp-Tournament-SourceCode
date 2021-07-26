@@ -33,6 +33,9 @@ function subscribeResult(tournamentInfo) {
                 request.onerror = () => {
                     reject()
                 }
+            })
+            .catch(() => {
+                lastTournament.splice(lastTournament.indexOf(tournamentInfo.tournament_id), 1)
             })        
         }   
     })

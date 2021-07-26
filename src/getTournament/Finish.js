@@ -328,7 +328,7 @@ class FinishComponent extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="TornamentCard__Footer">
-                                                <Button className="TornamentCard__Footer-Button" mode="outline" before={<Icon16InfoOutline/>} onClick={() => this.setActiveModal(elem.tournament_id)}>Подробнее</Button> 
+                                                <Button className="TornamentCard__Footer-Button TornamentCard__Footer-InfoButton" mode="outline" before={<Icon16InfoOutline/>} onClick={() => this.setActiveModal(elem.tournament_id)}>Подробнее</Button> 
                                                 <Button className="TornamentCard__Footer-Button TornamentCard__Footer-SmallButton" mode="outline" getRootRef={this.shareTargetRef} onClick={() => this.openShareActionSheetFinish(elem)}><Icon16ReplyOutline/></Button>
                                             </div> 
                                         </div>

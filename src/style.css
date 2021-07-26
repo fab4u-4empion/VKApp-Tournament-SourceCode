@@ -191,3 +191,7 @@ h4 {
 .vkuiPanelHeader__separator {
     display: none;
 }
+
+.TornamentCard__Footer-InfoButton > .vkuiButton__in > .vkuiButton__content {
+    padding-bottom: 5px!important;
+}
