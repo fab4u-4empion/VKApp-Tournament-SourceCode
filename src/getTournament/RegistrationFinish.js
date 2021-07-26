@@ -21,7 +21,6 @@ import { Icon24NotificationCheckOutline } from '@vkontakte/icons';
 var tournament = new XMLHttpRequest();
     tournament.open("POST", "https://api.wotblitz.ru/wotb/tournaments/list/?application_id=132530213b8f23d4c0e1d1f423c307a9&status=registration_finished", false)
     tournament.send();
-    console.log(Date.now())
 
     var TournamentList = JSON.parse(tournament.responseText);
 
@@ -267,6 +266,16 @@ class RegFinishComponent extends React.Component {
     openShareActionSheet(e) {
         getPosition()
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
+        if (!isDesktop) {
+            var state = {actionShet: e.tournament_id}
+            var title = ''
+            history.pushState(state, title)
+        }
+        if (!isDesktop) {
+            var state = {actionShet: e.tournament_id}
+            var title = ''
+            history.pushState(state, title)
+        }
         this.setState({elem: e})
         this.setState({ popout:
             <ActionSheet 
@@ -404,6 +413,11 @@ class RegFinishComponent extends React.Component {
             if(windowFocus) {
                 windowFocus = false
             }
+        })
+
+        window.addEventListener('popstate', () => {
+            if (this.state.popout != null)
+                this.closeActionSheet()
         })
 
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;

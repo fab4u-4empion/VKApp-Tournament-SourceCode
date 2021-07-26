@@ -266,6 +266,11 @@ class UpcommingComponent extends React.Component {
     openShareActionSheet(e) {
         getPosition()
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
+        if (!isDesktop) {
+            var state = {actionShet: e.tournament_id}
+            var title = ''
+            history.pushState(state, title)
+        }
         this.setState({elem: e})
         this.setState({ popout:
             <ActionSheet 
@@ -404,6 +409,11 @@ class UpcommingComponent extends React.Component {
             if(windowFocus) {
                 windowFocus = false
             }
+        })
+
+        window.addEventListener('popstate', () => {
+            if (this.state.popout != null)
+                this.closeActionSheet()
         })
 
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;

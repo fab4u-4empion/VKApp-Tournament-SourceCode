@@ -157,6 +157,11 @@ class FinishComponent extends React.Component {
     openShareActionSheetFinish(e) {
         getPosition()
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
+        if (!isDesktop) {
+            var state = {actionShet: e.tournament_id}
+            var title = ''
+            history.pushState(state, title)
+        }
         this.setState({elem: e})
         this.setState({ popout:
             <ActionSheet 
@@ -185,6 +190,13 @@ class FinishComponent extends React.Component {
             modalHistory = modalHistory.splice(0, modalHistory.indexOf(activeModal) + 1);
         } else {
             modalHistory.push(activeModal);
+        }
+
+        const isMobile = this.props.viewWidth <= ViewWidth.MOBILE;
+        if (isMobile) {
+            var state = {modal: activeModal}
+            var title = ''
+            history.pushState(state, title)
         }
     
         this.setState({
@@ -225,6 +237,11 @@ class FinishComponent extends React.Component {
     render() {
 
         window.addEventListener('scroll', () => {
+            if (this.state.popout != null)
+                this.closeActionSheet()
+        })
+
+        window.addEventListener('popstate', () => {
             if (this.state.popout != null)
                 this.closeActionSheet()
         })

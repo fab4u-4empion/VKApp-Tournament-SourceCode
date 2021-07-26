@@ -174,6 +174,11 @@ class RunningComponent extends React.Component {
     openShareActionSheet(e) {
         getPosition()
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
+        if (!isDesktop) {
+            var state = {actionShet: e.tournament_id}
+            var title = ''
+            history.pushState(state, title)
+        }
         this.setState({elem: e})
         this.setState({ popout:
             <ActionSheet 
@@ -222,6 +227,11 @@ class RunningComponent extends React.Component {
     render() {
 
         window.addEventListener('scroll', () => {
+            if (this.state.popout != null)
+                this.closeActionSheet()
+        })
+
+        window.addEventListener('popstate', () => {
             if (this.state.popout != null)
                 this.closeActionSheet()
         })
