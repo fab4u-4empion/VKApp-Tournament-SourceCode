@@ -165,7 +165,10 @@ class FinishComponent extends React.Component {
         this.setState({elem: e})
         this.setState({ popout:
             <ActionSheet 
-                onClose={() => this.setState({ popout: null })}
+                onClose={() => {
+                    this.setState({ popout: null })
+                    history.back()    
+                }}
                 iosCloseItem={<ActionSheetItem autoclose mode="cancel">Отменить</ActionSheetItem>}
                 header="Как вы хотите поделиться турниром?"
                 toggleRef={this.shareTargetRef.current}
@@ -190,13 +193,6 @@ class FinishComponent extends React.Component {
             modalHistory = modalHistory.splice(0, modalHistory.indexOf(activeModal) + 1);
         } else {
             modalHistory.push(activeModal);
-        }
-
-        const isMobile = this.props.viewWidth <= ViewWidth.MOBILE;
-        if (isMobile) {
-            var state = {modal: activeModal}
-            var title = ''
-            history.pushState(state, title)
         }
     
         this.setState({

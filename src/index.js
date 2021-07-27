@@ -1,13 +1,11 @@
 import "core-js/features/map";
 import "core-js/features/set";
-import { ScreenSpinner } from "@vkontakte/vkui";
 import React from "react";
 import ReactDOM from "react-dom";
 import bridge from "@vkontakte/vk-bridge";
 import '@vkontakte/vkui/dist/vkui.css';
-//import App from "./App";
 import './style.css';
-
+import Spinner from './blank_panels/spinner'
 
 // Init VK  Mini App
 bridge.send("VKWebAppInit");
@@ -18,7 +16,7 @@ bridge.subscribe((e) => {
     }
 });
 
-ReactDOM.render(<ScreenSpinner/>, document.getElementById("root"));
+ReactDOM.render(<Spinner/>, document.getElementById("root"));
 
 async function load() {
     let obj = await import("./App")

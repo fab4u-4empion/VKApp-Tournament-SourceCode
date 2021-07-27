@@ -290,7 +290,10 @@ class RegStartComponent extends React.Component {
         this.setState({elem: e})
         this.setState({ popout:
             <ActionSheet 
-                onClose={() => this.setState({ popout: null })}
+                onClose={() => {
+                    this.setState({ popout: null })
+                    history.back()    
+                }}
                 iosCloseItem={<ActionSheetItem autoclose mode="cancel">Отменить</ActionSheetItem>}
                 header="Как вы хотите поделиться турниром?"
                 toggleRef={this.shareTargetRef.current}
