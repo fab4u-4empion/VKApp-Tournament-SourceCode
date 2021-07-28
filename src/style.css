@@ -6,6 +6,7 @@
 
 body {
     font-family: Manrope;
+    margin: 0;
 }
 
 body[scheme=bright_light] {
@@ -194,4 +195,8 @@ h4 {
 
 .TornamentCard__Footer-InfoButton > .vkuiButton__in > .vkuiButton__content {
     padding-bottom: 5px!important;
+}
+
+.vkuiPanelHeader--ios {
+    width: 100%!important;
 }
