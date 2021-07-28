@@ -281,7 +281,9 @@ class RegFinishComponent extends React.Component {
             <ActionSheet 
                 onClose={() => {
                     this.setState({ popout: null })
-                    history.back()    
+                    if (!isDesktop) {
+                        history.back()
+                    }    
                 }}
                 iosCloseItem={<ActionSheetItem autoclose mode="cancel">Отменить</ActionSheetItem>}
                 header="Как вы хотите поделиться турниром?"
