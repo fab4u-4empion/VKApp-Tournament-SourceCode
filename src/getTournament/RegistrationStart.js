@@ -115,11 +115,9 @@ class RegStartComponent extends React.Component {
         }
     
         this.modalBack = () => {
-            setTimeout(() => {
-                this.setActiveModal(this.state.modalHistory[this.state.modalHistory.length - 2]);
-                history.back()
-                document.body.style.overflow = "visible";
-            }, 100)
+            this.setActiveModal(this.state.modalHistory[this.state.modalHistory.length - 2]);
+            history.back()
+            document.body.style.overflow = "visible";
         };
     }
 
@@ -186,12 +184,6 @@ class RegStartComponent extends React.Component {
     }
 
     setActiveModal(activeModal) {
-        if (this.state.activeModal == null) {
-            var state = {modal: 'modal'}
-            var title = ''
-            document.body.style.overflow = "hidden";
-            history.pushState(state, title)
-        }
         activeModal = activeModal || null;
         let modalHistory = this.state.modalHistory ? [...this.state.modalHistory] : [];
     
@@ -207,6 +199,13 @@ class RegStartComponent extends React.Component {
             activeModal,
             modalHistory
         });
+
+        if (this.state.activeModal == null) {
+            var state = {modal: 'modal'}
+            var title = ''
+            document.body.style.overflow = "hidden";
+            history.pushState(state, title)
+        }
     };
 
     buildRequest(elem) {
@@ -546,20 +545,20 @@ class RegStartComponent extends React.Component {
                                                         <div className="TournamentCard__Info-Main-Registration">
                                                             <div className="TournamentCard__Info-Main-Title">Регистрация</div>
                                                             <div style={{marginLeft: 5}}>
-                                                                <span style={{display: "inline-flex", alignItems: "center"}}>
-                                                                    <Icon16CheckCircleOutline width={17} height={17}/><Time timestamp={elem.registration_start_at}/>
+                                                                <span style={{display: "inline-flex"}}>
+                                                                    <Icon16CheckCircleOutline style={{paddingTop: "2.5px"}} width={17} height={17}/><Time timestamp={elem.registration_start_at}/>
                                                                 </span>
                                                                 <br/>
-                                                                <span style={{display: "inline-flex", alignItems: "center"}}>
-                                                                    <Icon16CancelCircleOutline width={17} height={17}/><Time timestamp={elem.registration_end_at}/>
+                                                                <span style={{display: "inline-flex"}}>
+                                                                    <Icon16CancelCircleOutline style={{paddingTop: "2.5px"}} width={17} height={17}/><Time timestamp={elem.registration_end_at}/>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                         <div className="TournamentCard__Info-Main-Start">
                                                             <div className="TournamentCard__Info-Main-Title">Начало боёв</div>
                                                             <div style={{marginLeft: 5}}>
-                                                                <span style={{display: "inline-flex", alignItems: "center"}}>
-                                                                    <Icon16Recent width={17} height={17}/><Time timestamp={elem.start_at} mode="dayAndTime"/>
+                                                                <span style={{display: "inline-flex"}}>
+                                                                    <Icon16Recent style={{paddingTop: "2.5px"}} width={17} height={17}/><Time timestamp={elem.start_at} mode="dayAndTime"/>
                                                                 </span>
                                                             </div>
                                                         </div>

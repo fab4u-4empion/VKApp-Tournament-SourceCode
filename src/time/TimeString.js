@@ -4,23 +4,23 @@ function TimeStr (timestamp, mode) {
     switch (mode) {
         case "day":
             var options = {year: 'numeric', month: 'long', day: 'numeric'};
-            options.timeZone = 'UTC';
-            return (time.toLocaleDateString('ru-RU', options) + " (UTC)")
+            options.timeZone = 'Europe/Moscow';
+            return (time.toLocaleDateString('ru-RU', options) + " (МСК)")
 
         case "time":
             var options = {hour: 'numeric', minute: 'numeric' };
-            options.timeZone = 'UTC';
-            return ( time.toLocaleDateString('ru-RU', options) + " (UTC)")
+            options.timeZone = 'Europe/Moscow';
+            return ( time.toLocaleDateString('ru-RU', options) + " (МСК)")
 
         case "dayAndTime":
             var options = {month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-            options.timeZone = 'UTC';
-            return ( time.toLocaleDateString('ru-RU', options) + " (UTC)")    
+            options.timeZone = 'Europe/Moscow';
+            return ( time.toLocaleDateString('ru-RU', options) + " (МСК)")    
             
         default:          
             var options = {month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }; 
-            options.timeZone = 'UTC'; 
-            return ( time.toLocaleDateString('ru-RU', options) + " (UTC)"); 
+            options.timeZone = 'Europe/Moscow'; 
+            return ( time.toLocaleDateString('ru-RU', options) + " (МСК)"); 
     }  
 }
 
