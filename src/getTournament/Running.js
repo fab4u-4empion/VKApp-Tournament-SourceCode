@@ -357,11 +357,11 @@ class RunningComponent extends React.Component {
                                                             <div className="TournamentCard__Info-Main-Title">Продолжительность боёв</div>
                                                             <div style={{marginLeft: 5}}>
                                                                 <span style={{display: "inline-flex"}}>
-                                                                    <Icon16CheckCircleOutline style={{paddingTop: "2.5px"}} width={17} height={17}/><Time timestamp={elem.start_at}/>
+                                                                    <Icon16CheckCircleOutline style={{paddingTop: "2.5px"}} width={17} height={17}/><Time mode="dayAndTime" timestamp={elem.start_at}/>
                                                                 </span>
                                                                 <br/>
                                                                 <span style={{display: "inline-flex"}}>
-                                                                    <Icon16CancelCircleOutline style={{paddingTop: "2.5px"}} width={17} height={17}/><Time timestamp={elem.end_at}/>
+                                                                    <Icon16CancelCircleOutline style={{paddingTop: "2.5px"}} width={17} height={17}/><Time mode="dayAndTime" timestamp={elem.end_at}/>
                                                                 </span>
                                                             </div>
                                                         </div>

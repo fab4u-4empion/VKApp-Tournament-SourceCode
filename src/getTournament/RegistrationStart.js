@@ -546,11 +546,11 @@ class RegStartComponent extends React.Component {
                                                             <div className="TournamentCard__Info-Main-Title">Регистрация</div>
                                                             <div style={{marginLeft: 5}}>
                                                                 <span style={{display: "inline-flex"}}>
-                                                                    <Icon16CheckCircleOutline style={{paddingTop: "2.5px"}} width={17} height={17}/><Time timestamp={elem.registration_start_at}/>
+                                                                    <Icon16CheckCircleOutline style={{paddingTop: "2.5px"}} width={17} height={17}/><Time mode="dayAndTime" timestamp={elem.registration_start_at}/>
                                                                 </span>
                                                                 <br/>
                                                                 <span style={{display: "inline-flex"}}>
-                                                                    <Icon16CancelCircleOutline style={{paddingTop: "2.5px"}} width={17} height={17}/><Time timestamp={elem.registration_end_at}/>
+                                                                    <Icon16CancelCircleOutline style={{paddingTop: "2.5px"}} width={17} height={17}/><Time mode="dayAndTime" timestamp={elem.registration_end_at}/>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -558,7 +558,7 @@ class RegStartComponent extends React.Component {
                                                             <div className="TournamentCard__Info-Main-Title">Начало боёв</div>
                                                             <div style={{marginLeft: 5}}>
                                                                 <span style={{display: "inline-flex"}}>
-                                                                    <Icon16Recent style={{paddingTop: "2.5px"}} width={17} height={17}/><Time timestamp={elem.start_at} mode="dayAndTime"/>
+                                                                    <Icon16Recent style={{paddingTop: "2.5px"}} width={17} height={17}/><Time mode="dayAndTime" timestamp={elem.start_at} mode="dayAndTime"/>
                                                                 </span>
                                                             </div>
                                                         </div>

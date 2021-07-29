@@ -23,7 +23,7 @@ const CoockiPlaceholder =   <AdaptivityProvider>
                                                 stretched
                                                 icon={<Icon56ErrorOutline fill={'var(--red)'}/>}
                                             >
-                                                Сервис не может работать с выключенными Coocki <br/> или в режиме инкогнито
+                                                Сервис не может работать с выключенными Cookie <br/> или в режиме инкогнито
                                             </Placeholder>
                                         </Panel>
                                     </View>
