@@ -75,70 +75,68 @@ class Application extends React.Component {
 		}
 		return (
 			//<ConfigProvider platform="ios">
-			<View>
-				<Panel>
-					<PanelHeader>Tурниры WoT Blitz</PanelHeader>
-					<Group style={{paddingTop: 40}}>
-						<FixedLayout vertical="top" filled>
-							<Tabs>
-								<HorizontalScroll showArrows getScrollToLeft={i => i - 120} getScrollToRight={i => i + 120}>
-									<TabsItem
-										onClick={() => {
-												this.setState({activeTab: 'all'})
-												window.scrollTo(0, 0)
-											}
+			<span>
+				<PanelHeader>Tурниры WoT Blitz</PanelHeader>
+				<Group style={{paddingTop: 40}}>
+					<FixedLayout vertical="top" filled>
+						<Tabs>
+							<HorizontalScroll showArrows getScrollToLeft={i => i - 120} getScrollToRight={i => i + 120}>
+								<TabsItem
+									onClick={() => {
+											this.setState({activeTab: 'all'})
+											window.scrollTo(0, 0)
 										}
-										selected={this.state.activeTab === 'all'}
-									>Все</TabsItem>
-									<TabsItem
-										onClick={() => {
-												this.setState({activeTab: 'registration_started'})
-												window.scrollTo(0, 0)
-											}
+									}
+									selected={this.state.activeTab === 'all'}
+								>Все</TabsItem>
+								<TabsItem
+									onClick={() => {
+											this.setState({activeTab: 'registration_started'})
+											window.scrollTo(0, 0)
 										}
-										selected={this.state.activeTab === 'registration_started'}
-									>Идёт регистрация</TabsItem>
-									<TabsItem
-										onClick={() => {
-												this.setState({activeTab: 'upcoming'})
-												window.scrollTo(0, 0)
-											}
+									}
+									selected={this.state.activeTab === 'registration_started'}
+								>Идёт регистрация</TabsItem>
+								<TabsItem
+									onClick={() => {
+											this.setState({activeTab: 'upcoming'})
+											window.scrollTo(0, 0)
 										}
-										selected={this.state.activeTab === 'upcoming'}
-									>Запланированные</TabsItem>
-									<TabsItem
-										onClick={() => { 
-												this.setState({activeTab: 'registration_finished'})
-												window.scrollTo(0, 0)
-											}
+									}
+									selected={this.state.activeTab === 'upcoming'}
+								>Запланированные</TabsItem>
+								<TabsItem
+									onClick={() => { 
+											this.setState({activeTab: 'registration_finished'})
+											window.scrollTo(0, 0)
 										}
-										selected={this.state.activeTab === 'registration_finished'}
-									>Регистрация завершена</TabsItem>
-									<TabsItem
-										onClick={() => {
-												this.setState({activeTab: 'running'})
-												window.scrollTo(0, 0)	
-											}
+									}
+									selected={this.state.activeTab === 'registration_finished'}
+								>Регистрация завершена</TabsItem>
+								<TabsItem
+									onClick={() => {
+											this.setState({activeTab: 'running'})
+											window.scrollTo(0, 0)	
 										}
-										selected={this.state.activeTab === 'running'}
-									>Идут бои</TabsItem>
-									<TabsItem
-										onClick={() => { 
-												this.setState({activeTab: 'finish'})
-												window.scrollTo(0, 0)
-											}
+									}
+									selected={this.state.activeTab === 'running'}
+								>Идут бои</TabsItem>
+								<TabsItem
+									onClick={() => { 
+											this.setState({activeTab: 'finish'})
+											window.scrollTo(0, 0)
 										}
-										selected={this.state.activeTab === 'finish'}
-									>Бои завершены</TabsItem>
-								</HorizontalScroll>
-							</Tabs>
-							<Separator wide />
-						</FixedLayout>
-						{content}
-						{this.state.snackbar} 
-					</Group>
-				</Panel>
-			</View>
+									}
+									selected={this.state.activeTab === 'finish'}
+								>Бои завершены</TabsItem>
+							</HorizontalScroll>
+						</Tabs>
+						<Separator wide />
+					</FixedLayout>
+					{content}
+					{this.state.snackbar} 
+				</Group>
+			</span>
 			//</ConfigProvider>
 		);
 	}
@@ -148,11 +146,7 @@ class Application extends React.Component {
 
 const App = () => {
 	return (
-		<AdaptivityProvider>
-			<AppRoot>
-				<Application/>
-			</AppRoot>
-		</AdaptivityProvider>
+		<Application/>	
 	);
 }
 

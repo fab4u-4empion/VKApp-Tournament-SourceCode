@@ -1,14 +1,35 @@
 import "core-js/features/map";
 import "core-js/features/set";
-import Preloader from './blank_panels/preloader'
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
 import bridge from "@vkontakte/vk-bridge";
 import '@vkontakte/vkui/dist/vkui.css';
 import './style.css';
+import { AdaptivityProvider, AppRoot, Panel, Placeholder, ScreenSpinner, View } from "@vkontakte/vkui";
+import ErrorBoundary from './errorBoundary'
+import { Icon56ErrorOutline } from '@vkontakte/icons';
+
 
 // Init VK  Mini App
 bridge.send("VKWebAppInit");
+
+const App = lazy(() => import('./App'))
+
+const CoockiPlaceholder =   <AdaptivityProvider>
+                                <AppRoot>
+                                    <View>
+                                        <Panel>
+                                            <Placeholder Placeholder
+                                                stretched
+                                                icon={<Icon56ErrorOutline fill={'var(--red)'}/>}
+                                            >
+                                                Сервис не может работать с выключенными Coocki <br/> или в режиме инкогнито
+                                            </Placeholder>
+                                        </Panel>
+                                    </View>
+                                </AppRoot>
+                            </AdaptivityProvider>
+
 
 window.history.pushState(null, null)
 
@@ -18,17 +39,30 @@ bridge.subscribe((e) => {
     }
 });
 
-ReactDOM.render(<Preloader/>, document.getElementById("root"));
-
-function load() {
-    let obj = import("./App")
-    obj.then(({default: App}) => {
-        ReactDOM.render(<App/>, document.getElementById("root"));
-    })    
+function FullApp() {
+    return (
+        <AdaptivityProvider>
+            <AppRoot>
+                <View>
+                    <Panel>
+                        <ErrorBoundary>
+                            <Suspense fallback={<ScreenSpinner/>}>
+                                <App/>
+                            </Suspense>
+                        </ErrorBoundary>
+                    </Panel>
+                </View>
+            </AppRoot>
+        </AdaptivityProvider>
+    )
 }
 
-load()
+try {
+    localStorage.setItem('test', 'test')
+    ReactDOM.render(<FullApp/>, document.getElementById("root"));
+} catch {
+    ReactDOM.render(CoockiPlaceholder, document.getElementById("root"));
+}
 
-
-import("./eruda").then(({ default: eruda }) => {}); //runtime download
+//import("./eruda").then(({ default: eruda }) => {}); //runtime download
 
