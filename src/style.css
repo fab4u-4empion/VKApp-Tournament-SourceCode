@@ -139,7 +139,7 @@ body[scheme=space_gray] {
 h4 {
     margin: 0;
     text-align: center;
-    font-size: 1.1em;
+    font-size: 1.15em;
 }
 
 .Pre {
@@ -200,4 +200,8 @@ h4 {
 
 .vkuiPanelHeader--ios {
     width: 100%!important;
+}
+
+.vkuiGroup--custom-separator {
+    font-family: 'Manrope', sans-serif;
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { AdaptivityProvider, Panel, Placeholder, View, AppRoot, ScreenSpinner } from "@vkontakte/vkui";
 import { Icon56WifiOutline } from '@vkontakte/icons';
-import { Color } from "chalk";
 
 class Preloader extends React.Component {
     constructor(props) {
@@ -21,10 +20,6 @@ class Preloader extends React.Component {
                                         Нет подключения к интернету <br/> Включите интернет и перезагрузите приложение с очисткой кэша
                                     </Placeholder>})
         })
-
-        // window.addEventListener('online', () => {
-        //     this.setState({content: <ScreenSpinner/>})     
-        // })
 
         return(
             <AdaptivityProvider>

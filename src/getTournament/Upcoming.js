@@ -115,7 +115,11 @@ class UpcommingComponent extends React.Component {
         }
     
         this.modalBack = () => {
-            this.setActiveModal(this.state.modalHistory[this.state.modalHistory.length - 2]);
+            setTimeout(() => {
+                this.setActiveModal(this.state.modalHistory[this.state.modalHistory.length - 2]);
+                history.back()
+                document.body.style.overflow = "visible";
+            }, 100)
         };
     }
 
@@ -295,6 +299,12 @@ class UpcommingComponent extends React.Component {
     }
 
     setActiveModal(activeModal) {
+        if (this.state.activeModal == null) {
+            var state = {modal: 'modal'}
+            var title = ''
+            document.body.style.overflow = "hidden";
+            history.pushState(state, title)
+        }
         activeModal = activeModal || null;
         let modalHistory = this.state.modalHistory ? [...this.state.modalHistory] : [];
     
@@ -419,6 +429,8 @@ class UpcommingComponent extends React.Component {
         window.addEventListener('popstate', () => {
             if (this.state.popout != null)
                 this.closeActionSheet()
+            if (this.state.activeModal != null)
+                this.modalBack()    
         })
 
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;

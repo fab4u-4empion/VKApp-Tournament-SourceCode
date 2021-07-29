@@ -10,6 +10,8 @@ import './style.css';
 // Init VK  Mini App
 bridge.send("VKWebAppInit");
 
+window.history.pushState(null, null)
+
 bridge.subscribe((e) => {
     if (e.detail.type === "VKWebAppUpdateConfig") {
         document.body.setAttribute("scheme", e.detail.data.scheme);
@@ -26,6 +28,7 @@ function load() {
 }
 
 load()
-    
+
+
 import("./eruda").then(({ default: eruda }) => {}); //runtime download
 
