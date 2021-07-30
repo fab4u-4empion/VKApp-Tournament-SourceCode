@@ -429,6 +429,11 @@ class RegFinishComponent extends React.Component {
             }
         })
 
+        window.addEventListener('orientationchange', () => {
+            if (this.state.popout != null)
+                this.closeActionSheet()    
+        })
+
         window.addEventListener('popstate', () => {
             if (this.state.popout != null)
                 this.closeActionSheet()

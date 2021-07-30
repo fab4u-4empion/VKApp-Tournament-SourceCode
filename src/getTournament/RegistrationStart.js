@@ -398,6 +398,11 @@ class RegStartComponent extends React.Component {
                 this.closeActionSheet()
         })
 
+        window.addEventListener('orientationchange', () => {
+            if (this.state.popout != null)
+                this.closeActionSheet()    
+        })
+
         window.addEventListener("focus", () => {
             if(!windowFocus && windowFocusCounter < 6) {
                 this.checkSubscriptions()

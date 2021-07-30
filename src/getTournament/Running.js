@@ -245,6 +245,11 @@ class RunningComponent extends React.Component {
                 this.closeActionSheet()
         })
 
+        window.addEventListener('orientationchange', () => {
+            if (this.state.popout != null)
+                this.closeActionSheet()    
+        })
+
         window.addEventListener('popstate', () => {
             if (this.state.popout != null)
                 this.closeActionSheet()

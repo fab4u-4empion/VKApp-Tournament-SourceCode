@@ -15,7 +15,7 @@ bridge.send("VKWebAppInit");
 
 const App = lazy(() => import('./App'))
 
-const CoockiPlaceholder =   <AdaptivityProvider>
+const CookiePlaceholder =   <AdaptivityProvider>
                                 <AppRoot>
                                     <View>
                                         <Panel>
@@ -61,7 +61,7 @@ try {
     localStorage.setItem('test', 'test')
     ReactDOM.render(<FullApp/>, document.getElementById("root"));
 } catch {
-    ReactDOM.render(CoockiPlaceholder, document.getElementById("root"));
+    ReactDOM.render(CookiePlaceholder, document.getElementById("root"));
 }
 
 //import("./eruda").then(({ default: eruda }) => {}); //runtime download
