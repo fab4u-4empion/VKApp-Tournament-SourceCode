@@ -389,10 +389,6 @@ class RegFinishComponent extends React.Component {
                 this.closeActionSheet()
         })
 
-        window.addEventListener('storage', () => {
-            this.checkSubscriptions()
-        })
-
         window.addEventListener('orientationchange', () => {
             if (this.state.popout != null)
                 this.closeActionSheet()    

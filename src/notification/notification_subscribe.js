@@ -31,11 +31,15 @@ function subscribeResult(tournamentInfo) {
                     }
                 }
                 request.onerror = () => {
+                    lastTournament.splice(lastTournament.indexOf(tournamentInfo.tournament_id), 1)
                     reject()
                 }
             })
             .catch(() => {
                 lastTournament.splice(lastTournament.indexOf(tournamentInfo.tournament_id), 1)
+                if (!navigator.onLine) {
+                    reject()   
+                }
             })        
         }   
     })

@@ -8,6 +8,7 @@ npm-debug.log*
 package-lock.json
 /node_modules
 test.html
+text.txt
 
 # Optional npm cache directory
 .npm

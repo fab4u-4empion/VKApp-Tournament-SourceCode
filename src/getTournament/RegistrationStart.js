@@ -370,7 +370,6 @@ class RegStartComponent extends React.Component {
                     stylesIsUpdated = true
                 } 
             });
-            
             observer.observe(elem[0], { attributes : true, attributeFilter : ['style'] }); 
         } 
     }
@@ -387,15 +386,11 @@ class RegStartComponent extends React.Component {
                 this.closeActionSheet()    
         })
 
-        window.addEventListener('storage', () => {
-            this.checkSubscriptions()
-        })
-
         window.addEventListener('popstate', () => {
             if (this.state.popout != null)
                 this.closeActionSheet()
             if (this.state.activeModal != null)
-                this.modalBack()
+                this.modalBack()    
         })
 
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
