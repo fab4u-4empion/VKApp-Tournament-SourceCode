@@ -45,9 +45,6 @@ var bellArrayButtons = {}
 var bellArrayModalAndroid = {}
 var bellArrayModalIOS = {}
 var activeBells = []
-var windowFocus = false
-var windowFocusCounter = 0
-var windowFocusTime
 
 TournamentList['data'].map((elem) => {
     tournamentsID.push(elem.tournament_id)
@@ -63,30 +60,21 @@ function getPosition() {
 
 bellArrayButtons = TournamentList['data'].reduce(
     (p, e) => {
-        if (activeBells.indexOf(e.tournament_id) != -1) 
-            p[e.tournament_id] = <Icon24NotificationCheckOutline width={19} height={21}/>
-        else
-            p[e.tournament_id] = <Icon28NotificationAddOutline width={19} height={21}/>
+        p[e.tournament_id] = <Icon28NotificationAddOutline width={19} height={21}/>   
         return p
     }, {}
 )
 
 bellArrayModalAndroid = TournamentList['data'].reduce(
     (p, e) => {
-        if (activeBells.indexOf(e.tournament_id) != -1)
-            p[e.tournament_id] = <Icon24NotificationCheckOutline width={28} height={28}/>
-        else
-            p[e.tournament_id] = <Icon28NotificationAddOutline/>
+        p[e.tournament_id] = <Icon28NotificationAddOutline/>
         return p
     }, {}
 )
 
 bellArrayModalIOS = TournamentList['data'].reduce(
     (p, e) => {
-        if (activeBells.indexOf(e.tournament_id) != -1)
-            p[e.tournament_id] = <Icon24NotificationCheckOutline/>
-        else    
-            p[e.tournament_id] = <Icon28NotificationAddOutline width={24} height={24}/>
+        p[e.tournament_id] = <Icon28NotificationAddOutline width={24} height={24}/>
         return p
     }, {}
 )
@@ -320,46 +308,41 @@ class RegStartComponent extends React.Component {
     }
 
     checkSubscriptions() {
-        var activeSubscriptions = new XMLHttpRequest()
-        activeSubscriptions.open('GET', `https://wotbtournamentvkapp.ru/vkapp/activeSubscriptions${window.location.search}`, true)
-        activeSubscriptions.send()
-        activeSubscriptions.onload = () => {
-            try {
-                activeBells = JSON.parse(activeSubscriptions.responseText)  
-            } catch (error) {
-                console.log(error)
-            }
-            bellArrayButtons = TournamentList['data'].reduce(
-                (p, e) => {
-                    if (activeBells.indexOf(e.tournament_id) != -1) 
-                        p[e.tournament_id] = <Icon24NotificationCheckOutline width={19} height={21}/>
-                    else
-                        p[e.tournament_id] = <Icon28NotificationAddOutline width={19} height={21}/>
-                    return p
-                }, {}
-            )
-            bellArrayModalAndroid = TournamentList['data'].reduce(
-                (p, e) => {
-                    if (activeBells.indexOf(e.tournament_id) != -1)
-                        p[e.tournament_id] = <Icon24NotificationCheckOutline width={28} height={28}/>
-                    else
-                        p[e.tournament_id] = <Icon28NotificationAddOutline/>
-                    return p
-                }, {}
-            )
-            bellArrayModalIOS = TournamentList['data'].reduce(
-                (p, e) => {
-                    if (activeBells.indexOf(e.tournament_id) != -1)
-                        p[e.tournament_id] = <Icon24NotificationCheckOutline/>
-                    else    
-                        p[e.tournament_id] = <Icon28NotificationAddOutline width={24} height={24}/>
-                    return p
-                }, {}
-            ) 
-            this.setState({bellsAndroid: bellArrayModalAndroid})
-            this.setState({bellsIOS: bellArrayModalIOS})
-            this.setState({bellsButtons: bellArrayButtons})
+        try {
+            activeBells = JSON.parse(sessionStorage.getItem('activeSubscriptions'))  
+        } catch (error) {
+            console.log(error)
         }
+        bellArrayButtons = TournamentList['data'].reduce(
+            (p, e) => {
+                if (activeBells.indexOf(e.tournament_id) != -1) 
+                    p[e.tournament_id] = <Icon24NotificationCheckOutline width={19} height={21}/>
+                else
+                    p[e.tournament_id] = <Icon28NotificationAddOutline width={19} height={21}/>
+                return p
+            }, {}
+        )
+        bellArrayModalAndroid = TournamentList['data'].reduce(
+            (p, e) => {
+                if (activeBells.indexOf(e.tournament_id) != -1)
+                    p[e.tournament_id] = <Icon24NotificationCheckOutline width={28} height={28}/>
+                else
+                    p[e.tournament_id] = <Icon28NotificationAddOutline/>
+                return p
+            }, {}
+        )
+        bellArrayModalIOS = TournamentList['data'].reduce(
+            (p, e) => {
+                if (activeBells.indexOf(e.tournament_id) != -1)
+                    p[e.tournament_id] = <Icon24NotificationCheckOutline/>
+                else    
+                    p[e.tournament_id] = <Icon28NotificationAddOutline width={24} height={24}/>
+                return p
+            }, {}
+        ) 
+        this.setState({bellsAndroid: bellArrayModalAndroid})
+        this.setState({bellsIOS: bellArrayModalIOS})
+        this.setState({bellsButtons: bellArrayButtons})
     }
 
     componentDidMount() {
@@ -367,8 +350,9 @@ class RegStartComponent extends React.Component {
             this.setActiveModal(Number(window.location.hash.slice(1)))
             isOpenedFirstTime = true
         }
-        this.checkSubscriptions()
-        windowFocusTime = new Date().getTime()
+        setTimeout(() => {
+            this.checkSubscriptions()
+        }, 500)
     }
 
     componentDidUpdate() {
@@ -403,28 +387,8 @@ class RegStartComponent extends React.Component {
                 this.closeActionSheet()    
         })
 
-        window.addEventListener("focus", () => {
-            if(!windowFocus && windowFocusCounter < 6) {
-                this.checkSubscriptions()
-                windowFocus = true
-                windowFocusCounter += 1
-                var d = new Date().getTime()
-                if (d - windowFocusTime > 2500) {
-                    windowFocusCounter = 0
-                    windowFocusTime = new Date().getTime()
-                }
-                if (windowFocusCounter == 6) {
-                    setTimeout(() => {
-                        windowFocusCounter = 0
-                    }, 30000)
-                } 
-            }
-        })
-
-        window.addEventListener("blur", () => {
-            if(windowFocus) {
-                windowFocus = false
-            }
+        window.addEventListener('storage', () => {
+            this.checkSubscriptions()
         })
 
         window.addEventListener('popstate', () => {

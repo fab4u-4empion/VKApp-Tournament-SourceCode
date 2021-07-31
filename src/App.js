@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Avatar, Snackbar, Panel, PanelHeader, Group, Tabs, HorizontalScroll, TabsItem, AppRoot, AdaptivityProvider, ConfigProvider, FixedLayout, Separator, withPlatform, ViewWidth} from '@vkontakte/vkui';
+import {Avatar, Snackbar, PanelHeader, Group, Tabs, HorizontalScroll, TabsItem, FixedLayout, Separator, withPlatform, ViewWidth} from '@vkontakte/vkui';
 import Upcoming from "./getTournament/Upcoming";
 import All from "./getTournament/all";
 import RegStart from "./getTournament/RegistrationStart";
@@ -7,6 +7,7 @@ import RegFinish from "./getTournament/RegistrationFinish";
 import Running from "./getTournament/Running";
 import Finish from "./getTournament/Finish";
 import Icon16Cancel from '@vkontakte/icons/dist/16/cancel'
+import bridge from "@vkontakte/vk-bridge";
 
 var isOpen = false
 
@@ -41,6 +42,22 @@ class Application extends React.Component {
 
 	render() {
 		const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
+
+		bridge.subscribe((e) => {
+			if (e.detail.type === "VKWebAppDenyNotificationsResult") {
+				const errorSnackbar =
+					<Snackbar
+						onClose={() => 
+							this.setState({ snackbar: null })
+						}
+						duration="2500"
+						before={<Avatar size={24} style={{ background: 'var(--red)' }}><Icon16Cancel fill="#fff" width={14} height={14} /></Avatar>}
+					>
+						Вы отключили уведомления от приложения <br/> Уведомления о нужных турнирах не придут 
+					</Snackbar>
+				this.setState({snackbar: errorSnackbar})
+			}
+		});
 
 		if (isDesktop) {
 			window.onfocus = (e) => {

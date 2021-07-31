@@ -8,10 +8,14 @@ import './style.css';
 import { AdaptivityProvider, AppRoot, Panel, Placeholder, ScreenSpinner, View } from "@vkontakte/vkui";
 import ErrorBoundary from './errorBoundary'
 import { Icon56ErrorOutline } from '@vkontakte/icons';
-
+import checkSubscriptions from './notification/activeSubscriptions'
 
 // Init VK  Mini App
 bridge.send("VKWebAppInit");
+
+var windowFocus = false
+var windowFocusCounter = 0
+var windowFocusTime
 
 const App = lazy(() => import('./App'))
 
@@ -59,10 +63,42 @@ function FullApp() {
 
 try {
     localStorage.setItem('test', 'test')
+    checkSubscriptions()
     ReactDOM.render(<FullApp/>, document.getElementById("root"));
 } catch {
     ReactDOM.render(CookiePlaceholder, document.getElementById("root"));
 }
 
-//import("./eruda").then(({ default: eruda }) => {}); //runtime download
+import("./eruda").then(({ default: eruda }) => {
+    console.log('test1')
+}); //runtime download
+
+window.addEventListener('load', () => {
+    windowFocusTime = new Date().getTime()
+})
+
+window.addEventListener("focus", () => {
+    console.log(windowFocus)
+    if(!windowFocus && windowFocusCounter < 6) {
+        checkSubscriptions()
+        windowFocus = true
+        windowFocusCounter += 1
+        var d = new Date().getTime()
+        if (d - windowFocusTime > 2500) {
+            windowFocusCounter = 0
+            windowFocusTime = new Date().getTime()
+        }
+        if (windowFocusCounter == 6) {
+            setTimeout(() => {
+                windowFocusCounter = 0
+            }, 30000)
+        } 
+    }
+})
+
+window.addEventListener("blur", () => {
+    if(windowFocus) {
+        windowFocus = false
+    }
+})
 
