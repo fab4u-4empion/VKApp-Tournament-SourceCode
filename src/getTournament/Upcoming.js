@@ -389,6 +389,13 @@ class UpcommingComponent extends React.Component {
                 this.closeActionSheet()    
         })
 
+        window.addEventListener('popstate', () => {
+            if (this.state.popout != null)
+                this.closeActionSheet()
+            if (this.state.activeModal != null)
+                this.modalBack()    
+        })
+
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
         const isMobile = this.props.viewWidth <= ViewWidth.MOBILE;
 
