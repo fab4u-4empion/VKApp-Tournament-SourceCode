@@ -1,4 +1,5 @@
 function getLaunchParams() {
+    var launchParams
     return launchParams = 
         window
             .location

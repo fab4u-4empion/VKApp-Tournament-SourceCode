@@ -8,6 +8,8 @@ import Running from "./getTournament/Running";
 import Finish from "./getTournament/Finish";
 import Icon16Cancel from '@vkontakte/icons/dist/16/cancel'
 import bridge from "@vkontakte/vk-bridge";
+import getLaunchParams from './getParams/search'
+import { Icon16Done } from '@vkontakte/icons';
 
 var isOpen = false
 
@@ -21,6 +23,23 @@ class Application extends React.Component {
 		activeTab: 'all',
 		snackbar: null
 	  };
+	}
+
+	enableNotifications() {
+		this.setState({snackbar: null})
+		bridge
+			.send("VKWebAppAllowNotifications")
+			.then(() => {
+				const snackbar =
+						<Snackbar
+							onClose={() => this.setState({ snackbar: null })}
+							duration="1650"
+							before={<Avatar size={24} style={{ background: 'var(--green)' }}><Icon16Done fill="#fff" width={14} height={14} /></Avatar>}
+						>
+							Вы включили уведомления
+						</Snackbar>
+				this.setState({snackbar: snackbar})			
+			})
 	}
 
 	componentDidMount() {
@@ -38,6 +57,30 @@ class Application extends React.Component {
 			this.setState({snackbar: errorSnackbar})		
             isOpen = true
         }
+
+		var params = getLaunchParams()
+
+		setTimeout(() => {
+			console.log(sessionStorage.getItem('activeSubscriptions'))
+			if (window.location.hash == '' && !JSON.parse(sessionStorage.getItem('activeSubscriptions')).length == 0 && params.vk_are_notifications_enabled == 0) {
+				const errorSnackbar =
+					<Snackbar
+						onClose={() => 
+							this.setState({ snackbar: null })
+						}
+						layout="vertical"
+						duration="2650"
+						action="Включить уведомления"
+						onActionClick={() => {
+							this.enableNotifications()
+						}}
+						before={<Avatar size={24} style={{ background: 'var(--red)' }}><Icon16Cancel fill="#fff" width={14} height={14} /></Avatar>}
+					>
+						У вас есть активные подписки, но вы отключили уведомления <br/> Уведомления о нужных турнирах не придут 
+					</Snackbar>
+				this.setState({snackbar: errorSnackbar})		
+			}
+		}, 500)
     }
 
 	render() {
@@ -51,6 +94,11 @@ class Application extends React.Component {
 							this.setState({ snackbar: null })
 						}
 						duration="2500"
+						layout="vertical"
+						action="Включить уведомления"
+						onActionClick={() => {
+							this.enableNotifications()
+						}}
 						before={<Avatar size={24} style={{ background: 'var(--red)' }}><Icon16Cancel fill="#fff" width={14} height={14} /></Avatar>}
 					>
 						Вы отключили уведомления от приложения <br/> Уведомления о нужных турнирах не придут 
