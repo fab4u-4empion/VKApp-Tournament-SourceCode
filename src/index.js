@@ -65,6 +65,6 @@ try {
     ReactDOM.render(CookiePlaceholder, document.getElementById("root"));
 }
 
-import("./eruda").then(({ default: eruda }) => {}); //runtime download
+//import("./eruda").then(({ default: eruda }) => {}); //runtime download
 
 

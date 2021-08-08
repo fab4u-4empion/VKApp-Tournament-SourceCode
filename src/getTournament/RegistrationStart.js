@@ -389,8 +389,10 @@ class RegStartComponent extends React.Component {
         window.addEventListener('popstate', () => {
             if (this.state.popout != null)
                 this.closeActionSheet()
-            if (this.state.activeModal != null)
-                this.modalBack()    
+            setTimeout(() => {
+                if (this.state.activeModal != null)
+                this.modalBack()
+            }, 400)   
         })
 
         const isDesktop = this.props.viewWidth > ViewWidth.MOBILE;
