@@ -115,6 +115,7 @@ class UpcommingComponent extends React.Component {
             subscribeResult(elem)
                 .then(() => {
                     activeBells.push(elem.tournament_id)
+                    sessionStorage.setItem('activeSubscriptions', JSON.stringify(activeBells))
                     bellArrayModalAndroid[elem.tournament_id] = <Icon24NotificationCheckOutline width={28} height={28}/>
                     bellArrayModalIOS[elem.tournament_id] = <Icon24NotificationCheckOutline/>
                     bellArrayButtons[elem.tournament_id] = <Icon24NotificationCheckOutline width={19} height={21}/>
@@ -148,6 +149,7 @@ class UpcommingComponent extends React.Component {
             unsubscribeResult(elem)
                 .then(() => {
                     activeBells.splice(activeBells.indexOf(elem.tournament_id), 1)
+                    sessionStorage.setItem('activeSubscriptions', JSON.stringify(activeBells))
                     bellArrayModalAndroid[elem.tournament_id] = <Icon28NotificationAddOutline/>
                     bellArrayModalIOS[elem.tournament_id] = <Icon28NotificationAddOutline width={24} height={24}/>
                     bellArrayButtons[elem.tournament_id] = <Icon28NotificationAddOutline width={19} height={21}/>

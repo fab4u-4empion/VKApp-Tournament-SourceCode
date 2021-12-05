@@ -10,7 +10,7 @@ body {
     overflow-x: hidden;
 }
 
-body[scheme=bright_light] {
+body[scheme=bright_light], body[scheme=vkcom_light] {
     --upcomibg-color: #05d5fa;
     --reg-started-color: #fed300;
     --reg-finished-color: #fa8a22;

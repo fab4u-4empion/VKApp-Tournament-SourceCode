@@ -1,5 +1,5 @@
 import React from 'react';
-import {Avatar, Snackbar, PanelHeader, Group, Tabs, HorizontalScroll, TabsItem, FixedLayout, Separator, withPlatform, ViewWidth} from '@vkontakte/vkui';
+import {Avatar, Snackbar, PanelHeader, Group, Tabs, HorizontalScroll, ConfigProvider, TabsItem, FixedLayout, Separator, withPlatform, ViewWidth} from '@vkontakte/vkui';
 import Upcoming from "./getTournament/Upcoming";
 import All from "./getTournament/all";
 import RegStart from "./getTournament/RegistrationStart";
