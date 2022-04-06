@@ -1,4 +1,4 @@
-var activeBells
+var activeBells = []
 
 function checkSubscriptions() {
     var activeSubscriptions = new XMLHttpRequest()
@@ -7,10 +7,13 @@ function checkSubscriptions() {
     activeSubscriptions.onload = () => {
         try {
             activeBells = JSON.parse(activeSubscriptions.responseText)  
-            sessionStorage.setItem('activeSubscriptions', JSON.stringify(activeBells))
         } catch (error) {
             console.log(error)
         }
+        sessionStorage.setItem('activeSubscriptions', JSON.stringify(activeBells))
+    }
+    activeSubscriptions.onerror = () => {
+        sessionStorage.setItem('activeSubscriptions', JSON.stringify(activeBells))
     }
 }
 
